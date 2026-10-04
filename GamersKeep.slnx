@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="debug.ps1" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="Application/Application.csproj">
+    <BuildDependency Project="BusinessLogic/BusinessLogic.csproj" />
+    <BuildDependency Project="Repository/Repository.csproj" />
+  </Project>
+  <Project Path="BusinessLogic/BusinessLogic.csproj">
+    <BuildDependency Project="Repository/Repository.csproj" />
+  </Project>
+  <Project Path="Repository/Repository.csproj" />
+  <Project Path="Tests/Tests.csproj">
+    <BuildDependency Project="Application/Application.csproj" />
+    <BuildDependency Project="BusinessLogic/BusinessLogic.csproj" />
+    <BuildDependency Project="Repository/Repository.csproj" />
+  </Project>
+</Solution>
