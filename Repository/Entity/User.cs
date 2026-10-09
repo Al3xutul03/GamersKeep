@@ -1,4 +1,4 @@
-﻿namespace Repository.Entity;
+namespace Repository.Entity;
 
 /// <summary>
 /// Database model for user information.
@@ -44,6 +44,16 @@ public class User
     /// Indicates whether the user has administrative privileges.
     /// </summary>
     public bool IsAdmin { get; set; }
+
+    /// <summary>
+    /// The user's refresh token.
+    /// </summary>
+    public string? RefreshToken { get; set; }
+
+    /// <summary>
+    /// The expiration time of the user's refresh token.
+    /// </summary>
+    public DateTime? RefreshTokenExpiryTime { get; set; }
 
     /// <summary>
     /// JSON-serialized <c>UserSettings</c> blob.

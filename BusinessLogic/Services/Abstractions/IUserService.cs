@@ -15,5 +15,5 @@ public interface IUserService
     /// </summary>
     /// <param name="name">The name of the user.</param>
     /// <returns>The found user, or null if not found.</returns>
-    public Task<UserReadModel?> GetByName(string name);
+    public Task<UserReadModel?> GetByNameAsync(string name);
 }

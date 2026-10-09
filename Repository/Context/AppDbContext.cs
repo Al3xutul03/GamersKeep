@@ -49,6 +49,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                   .IsRequired()
                   .HasDefaultValue(false);
 
+            entity.Property(u => u.RefreshToken)
+                  .HasMaxLength(255);
+
+            entity.Property(u => u.RefreshTokenExpiryTime);
+
             entity.Property(u => u.Settings)
                   .HasColumnType("text")
                   .IsRequired();

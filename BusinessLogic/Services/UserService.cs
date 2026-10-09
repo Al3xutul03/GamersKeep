@@ -18,7 +18,7 @@ public class UserService(IMapper mapper, IUserRepository userRepository)
 {
     private IUserRepository UserRepository => (IUserRepository)_repository;
 
-    public async Task<UserReadModel?> GetByName(string name)
+    public async Task<UserReadModel?> GetByNameAsync(string name)
     {
         User? user = await UserRepository.GetByNameAsync(name, IncludeBehaviour.NoInclude);
         return _mapper.Map<UserReadModel>(user);
