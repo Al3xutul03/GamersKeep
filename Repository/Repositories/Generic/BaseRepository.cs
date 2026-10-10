@@ -1,0 +1,55 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Builders;
+using Repository.Enums.Behaviours;
+using System.Reflection;
+
+namespace Repository.Repositories.Generic;
+
+/// <summary>
+/// The implementation of the <see cref="IBaseRepository{T}"/> interface
+/// </summary>
+/// <typeparam name="T">The class model for the repository</typeparam>
+/// <param name="context">The context of the database that the repository belongs to</param>
+/// <param name="keyName">The class primary key name</param>
+public abstract class BaseRepository<T>(DbContext context, string keyName)
+    : IBaseRepository<T> where T : class
+{
+    protected readonly DbContext _context = context;
+    protected readonly DbSet<T> _dbSet = context.Set<T>();
+    protected readonly string _keyName = keyName;
+    // Type cache for better performance
+    protected static readonly IQueryable<PropertyInfo> _entityProperties = typeof(T).GetProperties().AsQueryable();
+
+    /// <inheritdoc />
+    public virtual async Task<T?> GetByIdAsync(ulong id, IncludeBehaviour behavior, Func<IQueryable<T>, IQueryable<T>>? includes = null)
+    {
+        IQueryable<T> query = new QueryBuilder<T>(_dbSet)
+            .AddIncludes(includes)
+            .AddBehavior(behavior)
+            .Build();
+
+        return await query.FirstOrDefaultAsync(e => EF.Property<ulong>(e, _keyName) == id);
+    }
+
+    /// <inheritdoc />
+    public virtual async Task<IEnumerable<T>> GetAllAsync(IncludeBehaviour behavior, Func<IQueryable<T>, IQueryable<T>>? includes = null)
+    {
+        IQueryable<T> query = new QueryBuilder<T>(_dbSet)
+            .AddIncludes(includes)
+            .AddBehavior(behavior)
+            .Build();
+        return await query.ToListAsync();
+    }
+
+    /// <inheritdoc />
+    public virtual async Task AddAsync(T entity) => await _dbSet.AddAsync(entity);
+
+    /// <inheritdoc />
+    public virtual void Update(T entity) => _dbSet.Update(entity);
+
+    /// <inheritdoc />
+    public virtual void Delete(T entity) => _dbSet.Remove(entity);
+
+    /// <inheritdoc />
+    public virtual async Task SaveAsync() => await _context.SaveChangesAsync();
+}
