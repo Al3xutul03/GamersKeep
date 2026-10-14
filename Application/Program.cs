@@ -11,7 +11,11 @@ namespace Application
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddControllersWithViews(options =>
+            {
+                // Automatically validates anti-forgery tokens for all unsafe HTTP methods
+                options.Filters.Add(new Microsoft.AspNetCore.Mvc.AutoValidateAntiforgeryTokenAttribute());
+            });
             builder.Services.AddAutoMapper(cfg =>
             {
                 var licenseKey = builder.Configuration["AutoMapper:LicenseKey"];
