@@ -1,0 +1,45 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Sign in";
+    Layout = "_AuthLayout";
+}
+
+<h1 class="auth__title">Sign in</h1>
+<p class="auth__lede">New here? <a asp-action="Register">Create an account</a>.</p>
+
+<form asp-action="Login" method="post" novalidate data-submit-lock>
+    <input type="hidden" asp-for="ReturnUrl" />
+
+    @if (ViewData.ModelState[string.Empty]?.Errors.Count > 0)
+    {
+        <div class="alert alert--error" role="alert">
+            <div asp-validation-summary="ModelOnly"></div>
+        </div>
+    }
+
+    <div class="field">
+        <label asp-for="Username" class="field__label"></label>
+        <input asp-for="Username" class="field__input" autocomplete="username" autofocus />
+        <span asp-validation-for="Username" class="field__error"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Password" class="field__label"></label>
+        <div class="field__group">
+            <input asp-for="Password" class="field__input" autocomplete="current-password" />
+            <button type="button" class="field__toggle" data-toggle-password aria-label="Show password">Show</button>
+        </div>
+        <span asp-validation-for="Password" class="field__error"></span>
+    </div>
+
+    <label class="check">
+        <input asp-for="RememberMe" type="checkbox" />
+        <span>@Html.DisplayNameFor(m => m.RememberMe)</span>
+    </label>
+
+    <button type="submit" class="btn btn--primary btn--block" data-loading-text="Signing in…">Sign in</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

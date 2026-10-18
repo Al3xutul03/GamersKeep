@@ -26,7 +26,6 @@ namespace BusinessLogic.Services
         {
             var user = await _userRepository.GetByNameAsync(model.Username);
 
-            // BCrypt.Verify automatically handles the salt stored within the hash string
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
                 return null;
 
@@ -37,7 +36,6 @@ namespace BusinessLogic.Services
         {
             if (await _userRepository.EmailExistsAsync(model.Email)) return null;
 
-            // Generate a secure hash. WorkFactor 12 is a good balance of speed vs security.
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password, workFactor: 12);
 
             var user = new User
