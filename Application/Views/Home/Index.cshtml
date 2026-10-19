@@ -1,8 +1,19 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero">
+    <h1 class="hero__title">Your bot, under control.</h1>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <p class="hero__text">Signed in as <strong>@User.Identity.Name</strong>.</p>
+    }
+    else
+    {
+        <p class="hero__text">Sign in to manage settings and users.</p>
+        <div class="hero__actions">
+            <a class="btn btn--primary" asp-controller="Account" asp-action="Login">Sign in</a>
+            <a class="btn btn--ghost" asp-controller="Account" asp-action="Register">Create account</a>
+        </div>
+    }
+</section>

@@ -14,15 +14,7 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        // User.Settings is a JSON string in the DB. When writing, serialize the
-        // UserSettings object to a string. When reading, deserialize it.
-        // NOTE: UserReadDto is a positional record, so its properties are
-        // init-only and populated through the constructor. AutoMapper's
-        // .ForMember(...) is silently ignored for positional record ctor
-        // parameters — use .ForCtorParam(...) instead.
-        // We pass AppJsonSettings.Default explicitly to every JsonConvert
-        // call so the camelCase resolver only affects JSON we own — never
-        // DSharpPlus's internal serialization.
+        
 
         CreateMap<UserCreateModel, User>()
             .ForMember(dest => dest.Settings,

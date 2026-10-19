@@ -1,0 +1,51 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Create account";
+    Layout = "_AuthLayout";
+}
+
+<h1 class="auth__title">Create your account</h1>
+<p class="auth__lede">Already registered? <a asp-action="Login">Sign in</a>.</p>
+
+<form asp-action="Register" method="post" novalidate data-submit-lock>
+    @if (ViewData.ModelState[string.Empty]?.Errors.Count > 0)
+    {
+        <div class="alert alert--error" role="alert">
+            <div asp-validation-summary="ModelOnly"></div>
+        </div>
+    }
+
+    <div class="field">
+        <label asp-for="Name" class="field__label"></label>
+        <input asp-for="Name" class="field__input" autocomplete="username" autofocus />
+        <span asp-validation-for="Name" class="field__error"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Email" class="field__label"></label>
+        <input asp-for="Email" type="email" class="field__input" autocomplete="email" />
+        <span asp-validation-for="Email" class="field__error"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="Password" class="field__label"></label>
+        <div class="field__group">
+            <input asp-for="Password" class="field__input" autocomplete="new-password" aria-describedby="pw-hint" />
+            <button type="button" class="field__toggle" data-toggle-password aria-label="Show password">Show</button>
+        </div>
+        <span id="pw-hint" class="field__hint">At least 8 characters.</span>
+        <span asp-validation-for="Password" class="field__error"></span>
+    </div>
+
+    <div class="field">
+        <label asp-for="ConfirmPassword" class="field__label"></label>
+        <input asp-for="ConfirmPassword" class="field__input" autocomplete="new-password" />
+        <span asp-validation-for="ConfirmPassword" class="field__error"></span>
+    </div>
+
+    <button type="submit" class="btn btn--primary btn--block" data-loading-text="Creating account…">Create account</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
