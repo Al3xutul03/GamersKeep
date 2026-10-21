@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using BusinessLogic.Models.User;
 using BusinessLogic.Services.Abstractions;
 using BusinessLogic.Services.Generic;
@@ -14,10 +14,11 @@ namespace BusinessLogic.Services;
 /// <param name="mapper">The mapper used for mapping operations.</param>
 /// <param name="userRepository">The database context to use.</param>
 public class UserService(IMapper mapper, IUserRepository userRepository)
-    : BaseService<User, UserReadModel, UserCreateModel, UserUpdateModel>(mapper, userRepository), IUserService
+    : BaseService<ulong, User, UserReadModel, UserCreateModel, UserUpdateModel>(mapper, userRepository), IUserService
 {
     private IUserRepository UserRepository => (IUserRepository)_repository;
 
+    /// <inheritdoc />
     public async Task<UserReadModel?> GetByNameAsync(string name)
     {
         User? user = await UserRepository.GetByNameAsync(name, IncludeBehaviour.NoInclude);

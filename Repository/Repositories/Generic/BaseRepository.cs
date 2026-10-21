@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Repository.Builders;
 using Repository.Enums.Behaviours;
 using System.Reflection;
@@ -11,8 +11,10 @@ namespace Repository.Repositories.Generic;
 /// <typeparam name="T">The class model for the repository</typeparam>
 /// <param name="context">The context of the database that the repository belongs to</param>
 /// <param name="keyName">The class primary key name</param>
-public abstract class BaseRepository<T>(DbContext context, string keyName)
-    : IBaseRepository<T> where T : class
+public abstract class BaseRepository<KeyType, T>(DbContext context, string keyName)
+    : IBaseRepository<KeyType, T>
+    where KeyType : notnull
+    where T : class
 {
     protected readonly DbContext _context = context;
     protected readonly DbSet<T> _dbSet = context.Set<T>();
@@ -21,14 +23,14 @@ public abstract class BaseRepository<T>(DbContext context, string keyName)
     protected static readonly IQueryable<PropertyInfo> _entityProperties = typeof(T).GetProperties().AsQueryable();
 
     /// <inheritdoc />
-    public virtual async Task<T?> GetByIdAsync(ulong id, IncludeBehaviour behavior, Func<IQueryable<T>, IQueryable<T>>? includes = null)
+    public virtual async Task<T?> GetByIdAsync(KeyType id, IncludeBehaviour behavior, Func<IQueryable<T>, IQueryable<T>>? includes = null)
     {
         IQueryable<T> query = new QueryBuilder<T>(_dbSet)
             .AddIncludes(includes)
             .AddBehavior(behavior)
             .Build();
 
-        return await query.FirstOrDefaultAsync(e => EF.Property<ulong>(e, _keyName) == id);
+        return await query.FirstOrDefaultAsync(e => EF.Property<KeyType>(e, _keyName).Equals(id));
     }
 
     /// <inheritdoc />

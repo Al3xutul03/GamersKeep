@@ -106,6 +106,10 @@ public class QueryBuilder<T> where T : class
         {
             query = query.Include(property.Name);
         }
+        if (_includes != null)
+        {
+            query = _includes(query);
+        }
         return query;
     }
 
