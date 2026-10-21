@@ -25,7 +25,7 @@ public class Product
     /// <summary>
     /// Categories of a product.
     /// </summary>
-    public ICollection<ProductCategory>? Categories { get; set; }
+    public ICollection<ProductCategory> Categories { get; set; } = [];
 
     /// <summary>
     /// Description about the product.
@@ -35,7 +35,7 @@ public class Product
     /// <summary>
     /// Paths of the product images.
     /// </summary>
-    public ICollection<ProductImage>? Images { get; set; }
+    public ICollection<ProductImage> Images { get; set; } = [];
 
     /// <summary>
     /// Price of the product. (in lei)
