@@ -1,10 +1,11 @@
-﻿namespace BusinessLogic.Services.Generic;
+namespace BusinessLogic.Services.Generic;
 
 /// <summary>
 /// General service implementation that contains basic CRUD operations on the database
 /// </summary>
 /// <typeparam name="T">The class model for the service</typeparam>
-public interface IBaseService<T, TReadModel, TCreateModel, TUpdateModel>
+public interface IBaseService<KeyType, T, TReadModel, TCreateModel, TUpdateModel>
+    where KeyType : notnull
     where T : class
     where TReadModel : class
     where TCreateModel : class
@@ -15,7 +16,7 @@ public interface IBaseService<T, TReadModel, TCreateModel, TUpdateModel>
     /// </summary>
     /// <param name="id">The key of the entity</param>
     /// <returns>A task with the final result of the query</returns>
-    Task<TReadModel?> GetByIdAsync(ulong id);
+    Task<TReadModel?> GetByIdAsync(KeyType id);
 
     /// <summary>
     /// Read all entities from the table (WARNING: only use in testing with few entities in a table)
@@ -43,5 +44,5 @@ public interface IBaseService<T, TReadModel, TCreateModel, TUpdateModel>
     /// </summary>
     /// <param name="id">Primary key of the entity to be deleted</param>
     /// <returns>A task with the action</returns>
-    Task DeleteAsync(ulong id);
+    Task DeleteAsync(KeyType id);
 }

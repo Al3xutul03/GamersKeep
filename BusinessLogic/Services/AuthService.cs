@@ -22,6 +22,7 @@ namespace BusinessLogic.Services
         private readonly IUserRepository _userRepository = userRepository;
         private readonly IConfiguration _config = configuration;
 
+        /// <inheritdoc />
         public async Task<LoginResponseModel?> Login(LoginModel model)
         {
             var user = await _userRepository.GetByNameAsync(model.Username);
@@ -32,6 +33,7 @@ namespace BusinessLogic.Services
             return await GenerateLoginResponse(user);
         }
 
+        /// <inheritdoc />
         public async Task<LoginResponseModel?> Register(UserCreateModel model)
         {
             if (await _userRepository.EmailExistsAsync(model.Email)) return null;
@@ -51,7 +53,8 @@ namespace BusinessLogic.Services
 
             return await GenerateLoginResponse(user);
         }
-
+        
+        /// <inheritdoc />
         public async Task<bool> IsLoggedIn(string token)
         {
             if (string.IsNullOrWhiteSpace(token)) return false;
@@ -81,6 +84,7 @@ namespace BusinessLogic.Services
             }
         }
 
+        /// <inheritdoc />
         public async Task<LoginResponseModel?> RefreshToken(LoginResponseModel oldResponse)
         {
             var principal = GetPrincipalFromExpiredToken(oldResponse.Token);

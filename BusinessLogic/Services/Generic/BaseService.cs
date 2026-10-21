@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Repository.Enums.Behaviours;
 using Repository.Repositories.Generic;
 
@@ -13,19 +13,20 @@ namespace BusinessLogic.Services.Generic;
 /// <typeparam name="TUpdateModel">The update model of the entity</typeparam>
 /// <param name="mapper">The mapper for the models</param>
 /// <param name="repository">The main repository the service communicates with</param>
-public abstract class BaseService<T, TReadModel, TCreateModel, TUpdateModel>(
+public abstract class BaseService<KeyType, T, TReadModel, TCreateModel, TUpdateModel>(
     IMapper mapper,
-    IBaseRepository<T> repository) : IBaseService<T, TReadModel, TCreateModel, TUpdateModel>
+    IBaseRepository<KeyType, T> repository) : IBaseService<KeyType, T, TReadModel, TCreateModel, TUpdateModel>
+    where KeyType : notnull
     where T : class
     where TReadModel : class
     where TCreateModel : class
     where TUpdateModel : class
 {
     protected readonly IMapper _mapper = mapper;
-    protected readonly IBaseRepository<T> _repository = repository;
+    protected readonly IBaseRepository<KeyType, T> _repository = repository;
 
     /// <inheritdoc />
-    public virtual async Task<TReadModel?> GetByIdAsync(ulong id)
+    public virtual async Task<TReadModel?> GetByIdAsync(KeyType id)
     {
         var entity = await _repository.GetByIdAsync(id, IncludeBehaviour.NoInclude);
         return entity != null ? _mapper.Map<TReadModel>(entity) : null;
@@ -56,7 +57,7 @@ public abstract class BaseService<T, TReadModel, TCreateModel, TUpdateModel>(
     }
 
     /// <inheritdoc />
-    public virtual async Task DeleteAsync(ulong id)
+    public virtual async Task DeleteAsync(KeyType id)
     {
         var entity = await _repository.GetByIdAsync(id, IncludeBehaviour.NoInclude)
             ?? throw new Exception("User not found");

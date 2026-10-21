@@ -25,19 +25,10 @@ public class User
     /// </summary>
     public string PasswordHash { get; set; } = null!;
 
-    /// <summary>
-    /// The date and time when the user was created.
-    /// </summary>
     public DateTime CreatedAt { get; set; }
 
-    /// <summary>
-    /// The date and time when the user was last updated.
-    /// </summary>
     public DateTime UpdatedAt { get; set; }
 
-    /// <summary>
-    /// The date and time when the user was deleted, if applicable.
-    /// </summary>
     public DateTime? DeletedAt { get; set; }
 
     /// <summary>
