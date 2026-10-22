@@ -1,0 +1,154 @@
+﻿@using Repository.Enums.Types
+@model Application.Models.CatalogViewModel
+
+@{
+    ViewData["Title"] = "Catalog Produse";
+
+    var filter = Model?.Filter ?? new BusinessLogic.Models.SearchFilterModel();
+    var products = Model?.Products ?? new List<BusinessLogic.Models.Product.ProductListingModel>();
+    var currentPage = Model?.CurrentPage ?? 1;
+    var totalPages = Model?.TotalPages ?? 1;
+}
+
+<div class="catalog-page">
+    <section class="catalog-header">
+        <h1 class="catalog-header__title">Gamer's Keep Catalog</h1>
+        <p class="catalog-header__sub">Descoperă jocuri de societate, TTRPG-uri și accesorii pentru aventura ta.</p>
+
+        <form method="get" asp-controller="Catalog" asp-action="Index" class="catalog-search">
+            <input type="hidden" name="Category" value="@filter.Category" />
+            <input type="hidden" name="AgeRating" value="@filter.AgeRating" />
+            <input type="hidden" name="MinPrice" value="@filter.MinPrice" />
+            <input type="hidden" name="MaxPrice" value="@filter.MaxPrice" />
+
+            <div class="field__group">
+                <input type="text" name="SearchQuery" value="@filter.SearchQuery"
+                       class="field__input catalog-search__input"
+                       placeholder="Caută după nume (ex. Catan, Dungeons & Dragons...)" />
+                <button type="submit" class="btn btn--primary catalog-search__btn">Caută</button>
+            </div>
+        </form>
+    </section>
+
+    <div class="catalog-layout">
+        <aside class="catalog-sidebar">
+            <form method="get" asp-controller="Catalog" asp-action="Index" class="catalog-filters">
+                <input type="hidden" name="SearchQuery" value="@filter.SearchQuery" />
+
+                <div class="field">
+                    <label class="field__label" for="categorySelect">Categorie</label>
+                    <select id="categorySelect" name="Category" class="field__input">
+                        <option value="">Toate categoriile</option>
+                        @foreach (CategoryType cat in Enum.GetValues(typeof(CategoryType)))
+                        {
+                            <option value="@cat" selected="@(filter.Category == cat ? "selected" : null)">
+                                @cat
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label class="field__label" for="ageSelect">Vârstă recomandată</label>
+                    <select id="ageSelect" name="AgeRating" class="field__input">
+                        <option value="">Oricare</option>
+                        @foreach (AgeRatingType age in Enum.GetValues(typeof(AgeRatingType)))
+                        {
+                            <option value="@age" selected="@(filter.AgeRating == age ? "selected" : null)">
+                                @age
+                            </option>
+                        }
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label class="field__label">Preț (RON)</label>
+                    <div class="catalog-filters__price">
+                        <input type="number" name="MinPrice" step="0.01" value="@filter.MinPrice" placeholder="Min" class="field__input" />
+                        <span>-</span>
+                        <input type="number" name="MaxPrice" step="0.01" value="@filter.MaxPrice" placeholder="Max" class="field__input" />
+                    </div>
+                </div>
+
+                <div class="catalog-filters__actions">
+                    <button type="submit" class="btn btn--primary btn--block">Aplică filtrele</button>
+                    <a asp-controller="Catalog" asp-action="Index" class="btn btn--ghost btn--block">Resetează</a>
+                </div>
+            </form>
+        </aside>
+
+        <main class="catalog-content">
+            @if (!products.Any())
+            {
+                <div class="catalog-empty">
+                    <div class="catalog-empty__icon">🎲</div>
+                    <h3>Nu am găsit niciun produs</h3>
+                    <p class="hero__text">Nu există rezultate care să se potrivească criteriilor tale de căutare sau filtrare.</p>
+                    <a asp-controller="Catalog" asp-action="Index" class="btn btn--ghost">Șterge filtrele</a>
+                </div>
+            }
+            else
+            {
+                <div class="product-grid">
+                    @foreach (var item in products)
+                    {
+                        <article class="product-card">
+                            <a asp-controller="Catalog" asp-action="Details" asp-route-id="@item.Id" class="product-card__image-link">
+                                @if (!string.IsNullOrEmpty(item.FirstImageUrl))
+                                {
+                                    <img src="@item.FirstImageUrl" alt="@item.Name" class="product-card__img" />
+                                }
+                                else
+                                {
+                                    <div class="product-card__placeholder">
+                                        <span>Gamer's Keep</span>
+                                    </div>
+                                }
+                            </a>
+                            <div class="product-card__body">
+                                <h2 class="product-card__title">
+                                    <a asp-controller="Catalog" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
+                                </h2>
+                                <p class="product-card__price">@item.Price.ToString("F2") RON</p>
+                                <div class="product-card__actions">
+                                    <a asp-controller="Catalog" asp-action="Details" asp-route-id="@item.Id" class="btn btn--ghost btn--sm">Detalii</a>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </div>
+
+                @if (totalPages > 1)
+                {
+                    <nav class="pagination" aria-label="Paginație catalog">
+                        @if (currentPage > 1)
+                        {
+                            <a class="btn btn--ghost btn--sm"
+                               asp-action="Index"
+                               asp-route-page="@(currentPage - 1)"
+                               asp-route-SearchQuery="@filter.SearchQuery"
+                               asp-route-Category="@filter.Category"
+                               asp-route-AgeRating="@filter.AgeRating"
+                               asp-route-MinPrice="@filter.MinPrice"
+                               asp-route-MaxPrice="@filter.MaxPrice">Anterior</a>
+                        }
+
+                        <span class="pagination__info">Pagina <strong>@currentPage</strong> din <strong>@totalPages</strong></span>
+
+                        @if (currentPage < totalPages)
+                        {
+                            <a class="btn btn--ghost btn--sm"
+                               asp-action="Index"
+                               asp-route-page="@(currentPage + 1)"
+                               asp-route-SearchQuery="@filter.SearchQuery"
+                               asp-route-Category="@filter.Category"
+                               asp-route-AgeRating="@filter.AgeRating"
+                               asp-route-MinPrice="@filter.MinPrice"
+                               asp-route-MaxPrice="@filter.MaxPrice">Următor</a>
+                        }
+                    </nav>
+                }
+            }
+        </main>
+    </div>
+</div>

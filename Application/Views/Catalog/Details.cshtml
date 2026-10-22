@@ -1,0 +1,42 @@
+﻿@model BusinessLogic.Models.Product.ProductReadModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="product-detail">
+    <a asp-controller="Catalog" asp-action="Index" class="product-detail__back">&larr; Înapoi la catalog</a>
+
+    <div class="product-detail__grid">
+        <div class="product-detail__gallery">
+            @if (Model.Images.Any())
+            {
+                <img src="@Model.Images.First()" alt="@Model.Name" class="product-detail__img" />
+            }
+            else
+            {
+                <div class="product-detail__placeholder">
+                    <span>Gamer's Keep</span>
+                </div>
+            }
+        </div>
+
+        <div class="product-detail__info">
+            <h1 class="product-detail__title">@Model.Name</h1>
+            <p class="product-detail__price">@Model.Price.ToString("F2") RON</p>
+
+            <div class="product-detail__meta">
+                <span class="badge">Vârstă: @Model.AgeRating</span>
+            </div>
+
+            <div class="product-detail__description">
+                <h3>Descriere</h3>
+                <p>@Model.Description</p>
+            </div>
+
+            <div class="product-detail__actions">
+                <button type="button" class="btn btn--primary">Adaugă în coș</button>
+            </div>
+        </div>
+    </div>
+</div>
