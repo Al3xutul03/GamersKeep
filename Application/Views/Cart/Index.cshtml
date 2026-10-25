@@ -1,0 +1,54 @@
+﻿@model Application.Models.CartViewModel
+
+@{
+    ViewData["Title"] = "Coșul tău de cumpărături";
+}
+
+<div class="cart-page">
+    <h1 class="cart-title" style="margin-bottom: 2rem;">Coșul tău de cumpărături</h1>
+
+    @if (Model == null || !Model.Items.Any())
+    {
+        <div class="catalog-empty">
+            <div class="catalog-empty__icon">🛒</div>
+            <h3>Coșul tău este gol</h3>
+            <p class="hero__text">Alege jocurile tale preferate din catalog și adaugă-le în coș.</p>
+            <a asp-controller="Catalog" asp-action="Index" class="btn btn--primary">Vezi catalogul</a>
+        </div>
+    }
+    else
+    {
+        <div class="cart-layout" style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+            <div class="cart-items">
+                @foreach (var item in Model.Items)
+                {
+                    <div class="cart-item" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--color-border); padding: 1rem 0;">
+                        <div class="cart-item__details">
+                            <h3>@item.ProductName</h3>
+                            <p class="cart-item__price">@item.UnitPrice.ToString("F2") RON</p>
+                        </div>
+                        <div class="cart-item__quantity">
+                            <span>Cantitate: @item.Quantity</span>
+                        </div>
+                        <div class="cart-item__total">
+                            <strong>@item.TotalPrice.ToString("F2") RON</strong>
+                        </div>
+                        <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <button type="submit" class="btn btn--ghost btn--sm">Șterge</button>
+                        </form>
+                    </div>
+                }
+            </div>
+
+            <div class="cart-summary" style="background: var(--color-surface); padding: 1.5rem; border-radius: 8px;">
+                <h2>Rezumat comandă</h2>
+                <div class="cart-summary__row" style="display: flex; justify-content: space-between; margin: 1rem 0;">
+                    <span>Total de plată:</span>
+                    <strong class="cart-summary__total">@Model.GrandTotal.ToString("F2") RON</strong>
+                </div>
+                <button class="btn btn--primary btn--block">Spre Finalizare Comandă</button>
+            </div>
+        </div>
+    }
+</div>
