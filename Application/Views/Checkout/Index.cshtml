@@ -1,0 +1,78 @@
+﻿@model Application.Models.CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Finalizare Comandă";
+}
+
+<div class="checkout-page" style="max-width: 800px; margin: 0 auto;">
+    <h1 style="margin-bottom: 2rem;">Finalizare Comandă</h1>
+
+    <form asp-controller="Checkout" asp-action="ProcessOrder" method="post" class="checkout-form">
+        <fieldset style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <legend style="padding: 0 0.5rem; font-weight: bold;">1. Adresă de Livrare</legend>
+
+            <div class="field" style="margin-bottom: 1rem;">
+                <label class="field__label">Nume Complet</label>
+                <input type="text" asp-for="FullName" class="field__input" required />
+            </div>
+
+            <div class="field" style="margin-bottom: 1rem;">
+                <label class="field__label">Email</label>
+                <input type="email" asp-for="Email" class="field__input" required />
+            </div>
+
+            <div class="field" style="margin-bottom: 1rem;">
+                <label class="field__label">Adresă</label>
+                <input type="text" asp-for="Address" class="field__input" required />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="field">
+                    <label class="field__label">Oraș</label>
+                    <input type="text" asp-for="City" class="field__input" required />
+                </div>
+                <div class="field">
+                    <label class="field__label">Cod Poștal</label>
+                    <input type="text" asp-for="PostalCode" class="field__input" required />
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <legend style="padding: 0 0.5rem; font-weight: bold;">2. Metodă de Livrare</legend>
+
+            <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <input type="radio" asp-for="DeliveryMethod" value="Standard" checked />
+                    <span>Curier Standard (15.00 RON)</span>
+                </label>
+                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <input type="radio" asp-for="DeliveryMethod" value="Express" />
+                    <span>Curier Express (25.00 RON)</span>
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <legend style="padding: 0 0.5rem; font-weight: bold;">3. Detalii Plată (Stripe)</legend>
+
+            <div class="field" style="margin-bottom: 1rem;">
+                <label class="field__label">Număr Card</label>
+                <input type="text" class="field__input" placeholder="4242 •••• •••• 4242" required />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="field">
+                    <label class="field__label">Expirare (MM/YY)</label>
+                    <input type="text" class="field__input" placeholder="MM/YY" required />
+                </div>
+                <div class="field">
+                    <label class="field__label">CVC</label>
+                    <input type="text" class="field__input" placeholder="123" required />
+                </div>
+            </div>
+        </fieldset>
+
+        <button type="submit" class="btn btn--primary btn--block" style="font-size: 1.1rem; padding: 0.8rem;">Plătește și Plasează Comanda</button>
+    </form>
+</div>

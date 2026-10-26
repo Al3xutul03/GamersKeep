@@ -1,0 +1,19 @@
+﻿@model Application.Models.OrderConfirmationViewModel
+
+@{
+    ViewData["Title"] = "Comandă Confirmată";
+}
+
+<div class="confirmation-page" style="max-width: 600px; margin: 3rem auto; text-align: center;">
+    <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+    <h1>Îți mulțumim pentru comandă!</h1>
+    <p class="hero__text" style="margin: 1rem 0;">Comanda ta a fost plasată cu succes.</p>
+
+    <div style="background: var(--color-surface); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; text-align: left;">
+        <p style="margin-bottom: 0.5rem;"><strong>Număr comandă:</strong> <span style="color: var(--color-primary);">@Model.OrderNumber</span></p>
+        <p style="margin-bottom: 0.5rem;"><strong>Email confirmare:</strong> @Model.CustomerEmail</p>
+        <p style="margin-bottom: 0;"><strong>Total achitat:</strong> @Model.TotalAmount.ToString("F2") RON</p>
+    </div>
+
+    <a asp-controller="Catalog" asp-action="Index" class="btn btn--primary">Înapoi la Catalog</a>
+</div>
