@@ -57,10 +57,10 @@ public class ProductServiceTests
         var catFantasy = new Category { Type = CategoryType.Fantasy, Description = "Fantasy" };
         await _context.Categories.AddRangeAsync(catStrategy, catFamily, catFantasy);
 
-        var p1 = new Product { Id = 1, Name = "Catan", AgeRating = AgeRatingType.SevenPlus, Description = "Classic trading game", Price = 189.99m };
-        var p2 = new Product { Id = 2, Name = "Catan: Seafarers", AgeRating = AgeRatingType.SevenPlus, Description = "Expansion for Catan", Price = 140.00m };
-        var p3 = new Product { Id = 3, Name = "Gloomhaven", AgeRating = AgeRatingType.SixteenPlus, Description = "Epic fantasy campaign", Price = 699.00m };
-        var p4 = new Product { Id = 4, Name = "Terraforming Mars", AgeRating = AgeRatingType.TwelvePlus, Description = "Sci-fi strategy", Price = 299.99m };
+        var p1 = new Product { Id = 1, Name = "Catan", AgeRating = AgeRatingType.SevenPlus, Description = "Classic trading game", Price = 189.99m, Stock = 10 };
+        var p2 = new Product { Id = 2, Name = "Catan: Seafarers", AgeRating = AgeRatingType.SevenPlus, Description = "Expansion for Catan", Price = 140.00m, Stock = 5 };
+        var p3 = new Product { Id = 3, Name = "Gloomhaven", AgeRating = AgeRatingType.SixteenPlus, Description = "Epic fantasy campaign", Price = 699.00m, Stock = 3 };
+        var p4 = new Product { Id = 4, Name = "Terraforming Mars", AgeRating = AgeRatingType.TwelvePlus, Description = "Sci-fi strategy", Price = 299.99m, Stock = 8 };
 
         await _context.Products.AddRangeAsync(p1, p2, p3, p4);
 
@@ -145,7 +145,8 @@ public class ProductServiceTests
             "Dixit",
             AgeRatingType.SevenPlus,
             "Storytelling card game",
-            159.00m);
+            159.00m,
+            15u);
 
         await _productService.CreateAsync(createModel);
 

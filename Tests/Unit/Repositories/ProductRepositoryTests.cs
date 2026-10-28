@@ -144,4 +144,20 @@ public class ProductRepositoryTests
         var deleted = await _productRepo.GetByIdAsync(100, IncludeBehaviour.NoInclude);
         Assert.IsNull(deleted);
     }
+
+    [TestMethod]
+    public async Task CompositeKey_CartEntryRepository_GetByIdAsync_WorksCorrectly()
+    {
+        var cartRepo = new CartEntryRepository(_context);
+        var entry = new CartEntry { UserId = 2, ProductId = 5, Quantity = 3 };
+        await cartRepo.AddAsync(entry);
+        await cartRepo.SaveAsync();
+
+        var fetched = await cartRepo.GetByIdAsync((2ul, 5ul), IncludeBehaviour.NoInclude);
+        var missing = await cartRepo.GetByIdAsync((2ul, 99ul), IncludeBehaviour.NoInclude);
+
+        Assert.IsNotNull(fetched);
+        Assert.AreEqual(3u, fetched!.Quantity);
+        Assert.IsNull(missing);
+    }
 }
