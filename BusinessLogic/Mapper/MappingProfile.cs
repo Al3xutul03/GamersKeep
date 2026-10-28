@@ -1,6 +1,7 @@
 using AutoMapper;
 using BusinessLogic.Json;
 using BusinessLogic.Json.Model;
+using BusinessLogic.Models.CartEntry;
 using BusinessLogic.Models.Product;
 using BusinessLogic.Models.User;
 using Newtonsoft.Json;
@@ -71,5 +72,9 @@ public class MappingProfile : Profile
                 opt => opt.MapFrom(src => src.Images != null
                     ? src.Images.Select(i => new ProductImage { ProductId = src.Id, ImageUrl = i }).ToList()
                     : new List<ProductImage>()));
+
+        CreateMap<CartEntryCreateModel, CartEntry>();
+        CreateMap<CartEntry, CartEntryReadModel>();
+        CreateMap<CartEntryUpdateModel, CartEntry>();
     }
 }

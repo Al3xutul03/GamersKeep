@@ -20,6 +20,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<Category> Categories { get; set; } = null!;
     public DbSet<ProductCategory> ProductCategories { get; set; } = null!;
     public DbSet<ProductImage> ProductImages { get; set; } = null!;
+    public DbSet<CartEntry> CartEntries { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -64,6 +65,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(u => u.Settings)
                   .HasColumnType("text")
                   .IsRequired();
+
+            entity.HasMany(u => u.CartEntries)
+                  .WithOne(ce => ce.User)
+                  .HasForeignKey(ce => ce.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -101,6 +107,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.HasMany(p => p.Images)
                   .WithOne(pi => pi.Product)
                   .HasForeignKey(pi => pi.ProductId)
+                  .OnDelete(DeleteBehavior.Cascade);
+            entity.HasMany(p => p.CartEntries)
+                  .WithOne(ce => ce.Product)
+                  .HasForeignKey(ce => ce.ProductId)
                   .OnDelete(DeleteBehavior.Cascade);
         });
 
@@ -154,6 +164,19 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(pi => pi.UpdatedAt)
                   .IsRequired();
             entity.Property(pi => pi.DeletedAt);
+        });
+
+        modelBuilder.Entity<CartEntry>(entity =>
+        {
+            entity.ToTable("cart_entries");
+            entity.HasKey(ce => new { ce.UserId, ce.ProductId });
+            entity.Property(ce => ce.Quantity)
+                  .IsRequired();
+            entity.Property(ce => ce.CreatedAt)
+                  .IsRequired();
+            entity.Property(ce => ce.UpdatedAt)
+                  .IsRequired();
+            entity.Property(ce => ce.DeletedAt);
         });
 
         AppDbContextSeed.SeedData(modelBuilder);

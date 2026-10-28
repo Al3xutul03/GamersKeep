@@ -1,4 +1,4 @@
-﻿using Repository.Enums.Types;
+using Repository.Enums.Types;
 
 namespace Repository.Entity;
 
@@ -52,4 +52,9 @@ public class Product
     public DateTime UpdatedAt { get; set; }
 
     public DateTime? DeletedAt { get; set; }
+
+    /// <summary>
+    /// Cart entries referencing this product.
+    /// </summary>
+    public ICollection<CartEntry> CartEntries { get; set; } = [];
 }

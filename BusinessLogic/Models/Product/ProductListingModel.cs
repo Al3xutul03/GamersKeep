@@ -1,4 +1,4 @@
-﻿using Repository.Enums.Types;
+using Repository.Enums.Types;
 
 namespace BusinessLogic.Models.Product;
 
@@ -8,6 +8,6 @@ public record ProductListingModel(
     AgeRatingType AgeRating,
     string ShortDescription,
     decimal Price,
-    uint Ammount,
+    uint Stock,
     ICollection<CategoryType> Categories,
     string FirstImageUrl);

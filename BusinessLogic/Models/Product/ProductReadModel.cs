@@ -11,7 +11,7 @@ public record ProductReadModel(
     AgeRatingType AgeRating,
     string Description,
     decimal Price,
-    uint Ammount,
+    uint Stock,
     DateTime CreatedAt,
     DateTime UpdatedAt,
     ICollection<CategoryType> Categories,
