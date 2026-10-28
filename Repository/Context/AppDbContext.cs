@@ -87,6 +87,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(p => p.Price)
                   .HasColumnType("decimal(18,2)")
                   .IsRequired();
+            entity.Property(p => p.Stock)
+                  .IsRequired();
             entity.Property(p => p.CreatedAt)
                   .IsRequired();
             entity.Property(p => p.UpdatedAt)

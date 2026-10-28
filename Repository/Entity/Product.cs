@@ -42,6 +42,11 @@ public class Product
     /// </summary>
     public decimal Price { get; set; }
 
+    /// <summary>
+    /// The ammount of product units in stock
+    /// </summary>
+    public uint Stock { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }

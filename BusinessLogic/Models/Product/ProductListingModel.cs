@@ -8,5 +8,6 @@ public record ProductListingModel(
     AgeRatingType AgeRating,
     string ShortDescription,
     decimal Price,
+    uint Ammount,
     ICollection<CategoryType> Categories,
     string FirstImageUrl);
