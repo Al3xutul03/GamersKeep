@@ -74,7 +74,9 @@ public class MappingProfile : Profile
                     : new List<ProductImage>()));
 
         CreateMap<CartEntryCreateModel, CartEntry>();
-        CreateMap<CartEntry, CartEntryReadModel>();
+        CreateMap<CartEntry, CartEntryReadModel>()
+            .ForCtorParam(nameof(CartEntryReadModel.Product),
+                opt => opt.MapFrom(src => src.Product));
         CreateMap<CartEntryUpdateModel, CartEntry>();
     }
 }

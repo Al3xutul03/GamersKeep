@@ -1,3 +1,5 @@
+using BusinessLogic.Models.Product;
+
 namespace BusinessLogic.Models.CartEntry;
 
 /// <summary>
@@ -8,4 +10,5 @@ public record CartEntryReadModel(
     ulong ProductId,
     uint Quantity,
     DateTime CreatedAt,
-    DateTime UpdatedAt);
+    DateTime UpdatedAt,
+    ProductListingModel? Product = null);
