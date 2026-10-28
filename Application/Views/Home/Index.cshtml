@@ -1,8 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Acasă";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="hero">
+    <h1 class="hero__title">Gamer's Keep</h1>
+    <p class="hero__text">Destinația ta pentru jocuri de societate, TTRPG-uri și accesorii epice.</p>
+
+    <div class="hero__actions">
+        <a class="btn btn--primary" asp-controller="Catalog" asp-action="Index">Explorează Catalogul</a>
+
+        @if (User.Identity?.IsAuthenticated != true)
+        {
+            <a class="btn btn--ghost" asp-controller="Account" asp-action="Register">Creează cont</a>
+        }
+    </div>
+</section>

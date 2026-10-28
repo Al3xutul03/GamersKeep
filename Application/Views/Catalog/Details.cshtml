@@ -1,0 +1,44 @@
+﻿@model BusinessLogic.Models.Product.ProductReadModel
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="product-detail">
+    <a asp-controller="Catalog" asp-action="Index" class="btn btn--ghost btn--sm" style="margin-bottom: 1rem; display: inline-block;">&larr; Înapoi la catalog</a>
+
+    <div class="product-detail__layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div class="product-detail__image-container">
+            @if (Model.Images != null && Model.Images.Any())
+            {
+                <img src="@Model.Images.First()" alt="@Model.Name" style="width: 100%; border-radius: 8px;" />
+            }
+            else
+            {
+                <div class="product-card__placeholder" style="height: 300px; display: flex; align-items: center; justify-content: center; background: var(--color-surface); border-radius: 8px;">
+                    <span>Gamer's Keep</span>
+                </div>
+            }
+        </div>
+
+        <div class="product-detail__info">
+            <h1 class="product-detail__title">@Model.Name</h1>
+            <p class="product-detail__price" style="font-size: 1.5rem; font-weight: bold; margin: 1rem 0;">@Model.Price.ToString("F2") RON</p>
+
+            <div style="margin-bottom: 1rem;">
+                <span class="badge">Vârstă: @Model.AgeRating</span>
+            </div>
+
+            <h3>Descriere</h3>
+            <p class="product-detail__description">@Model.Description</p>
+
+            <div class="product-detail__actions" style="margin-top: 2rem;">
+                <form asp-controller="Cart" asp-action="AddToCart" method="post">
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <input type="hidden" name="quantity" value="1" />
+                    <button type="submit" class="btn btn--primary">Adaugă în coș</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

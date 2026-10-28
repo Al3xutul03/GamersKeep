@@ -1,83 +1,69 @@
 using BusinessLogic.Mapper;
+using BusinessLogic.Services;
+using BusinessLogic.Services.Abstractions;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Repository.Context;
+using Repository.Repositories;
+using Repository.Repositories.Abstractions;
 
-namespace Application
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllersWithViews();
+
+var connectionString =
+    Environment.GetEnvironmentVariable("DB_CONNECTION")
+    ?? builder.Configuration.GetConnectionString("DbDevConnection")
+    ?? throw new InvalidOperationException("No database connection string configured.");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 0))));
+
+builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<AppDbContext>());
+
+builder.Services.AddAutoMapper(cfg =>
 {
-    public class Program
+    cfg.LicenseKey = builder.Configuration["AutoMapper:LicenseKey"];
+    cfg.AddProfile<MappingProfile>();
+});
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
+builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(o =>
     {
-        public static async Task Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+        o.LoginPath = "/Account/Login";
+        o.LogoutPath = "/Account/Logout";
+        o.AccessDeniedPath = "/Account/Login";
+        o.Cookie.HttpOnly = true;
+        o.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; 
+        o.Cookie.SameSite = SameSiteMode.Lax;
+        o.SlidingExpiration = true;
+        o.ExpireTimeSpan = TimeSpan.FromDays(7);
+    });
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddAutoMapper(cfg =>
-            {
-                var licenseKey = builder.Configuration["AutoMapper:LicenseKey"];
-                if (!string.IsNullOrWhiteSpace(licenseKey))
-                {
-                    cfg.LicenseKey = licenseKey;
-                }
+var app = builder.Build();
 
-                cfg.AddMaps(typeof(MappingProfile).Assembly);
-            });
-
-            // Pool AppDbContext instances rather than allocating one per
-            // request. Same scoped semantics from the caller's perspective;
-            // EF Core resets the change tracker on return-to-pool.
-            // Default pool size is 1024.
-            builder.Services.AddDbContextPool<AppDbContext>(options =>
-                options.UseMySql(builder.Configuration.GetConnectionString("DbDevConnection"),
-                                 ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DbDevConnection"))));
-
-            // Redirect DbContext (the base type used by BaseRepository) to the
-            // SAME pooled AppDbContext instance within the scope. Without
-            // this, resolving DbContext would create a fresh non-pooled
-            // AppDbContext and bypass the pool entirely.
-            builder.Services.AddScoped<DbContext>(sp => sp.GetRequiredService<AppDbContext>());
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapStaticAssets();
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}")
-                .WithStaticAssets();
-
-            app.Lifetime.ApplicationStarted.Register(async () => {
-
-                // Apply any pending EF Core migrations on startup. This also acts
-                // as the database connectivity check (Migrate() opens a connection)
-                // and brings the schema up to date with the model automatically.
-                // NOTE: this is convenient for a single-instance application.
-                using var scope = app.Services.CreateScope();
-                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                try
-                {
-                    dbContext.Database.Migrate();
-                    Console.WriteLine($"[{DateTime.UtcNow.ToLocalTime()}] Database migrated and connection successful.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"[{DateTime.UtcNow.ToLocalTime()}] Database migration failed: {ex.Message}");
-                }
-            });
-
-            app.Run();
-        }
-    }
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.Run();
