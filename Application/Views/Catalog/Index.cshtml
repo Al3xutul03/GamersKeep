@@ -37,7 +37,7 @@
 
                 <div class="field">
                     <label class="field__label" for="categorySelect">Categorie</label>
-                    <select id="categorySelect" name="Category" class="field__input">
+                    <select id="categorySelect" name="Category" class="field__input" onchange="this.form.submit()">
                         <option value="">Toate categoriile</option>
                         @foreach (CategoryType cat in Enum.GetValues(typeof(CategoryType)))
                         {
@@ -50,7 +50,7 @@
 
                 <div class="field">
                     <label class="field__label" for="ageSelect">Vârstă recomandată</label>
-                    <select id="ageSelect" name="AgeRating" class="field__input">
+                    <select id="ageSelect" name="AgeRating" class="field__input" onchange="this.form.submit()">
                         <option value="">Oricare</option>
                         @foreach (AgeRatingType age in Enum.GetValues(typeof(AgeRatingType)))
                         {
@@ -110,8 +110,13 @@
                                     <a asp-controller="Catalog" asp-action="Details" asp-route-id="@item.Id">@item.Name</a>
                                 </h2>
                                 <p class="product-card__price">@item.Price.ToString("F2") RON</p>
-                                <div class="product-card__actions">
+                                <div class="product-card__actions" style="display: flex; gap: 0.5rem; margin-top: auto;">
                                     <a asp-controller="Catalog" asp-action="Details" asp-route-id="@item.Id" class="btn btn--ghost btn--sm">Detalii</a>
+                                    <form asp-controller="Cart" asp-action="AddToCart" method="post" style="flex: 1;">
+                                        <input type="hidden" name="productId" value="@item.Id" />
+                                        <input type="hidden" name="quantity" value="1" />
+                                        <button type="submit" class="btn btn--primary btn--sm btn--block">Coș</button>
+                                    </form>
                                 </div>
                             </div>
                         </article>
