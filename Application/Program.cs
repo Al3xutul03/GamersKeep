@@ -41,6 +41,10 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IStockService, StockService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IDeliveryMethodService, DeliveryMethodService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICheckoutService, CheckoutService>();
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(o =>
