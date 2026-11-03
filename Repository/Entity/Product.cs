@@ -1,4 +1,4 @@
-﻿using Repository.Enums.Types;
+using Repository.Enums.Types;
 
 namespace Repository.Entity;
 
@@ -42,9 +42,19 @@ public class Product
     /// </summary>
     public decimal Price { get; set; }
 
+    /// <summary>
+    /// The ammount of product units in stock
+    /// </summary>
+    public uint Stock { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
 
     public DateTime? DeletedAt { get; set; }
+
+    /// <summary>
+    /// Cart entries referencing this product.
+    /// </summary>
+    public ICollection<CartEntry> CartEntries { get; set; } = [];
 }

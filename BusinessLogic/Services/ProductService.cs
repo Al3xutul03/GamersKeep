@@ -1,4 +1,5 @@
 using AutoMapper;
+using BusinessLogic.Enums.Types;
 using BusinessLogic.Models;
 using BusinessLogic.Models.Product;
 using BusinessLogic.Services.Abstractions;
@@ -34,6 +35,14 @@ public class ProductService(IMapper mapper, IProductRepository productRepository
              .ThenInclude(pc => pc.Category)
              .Where(CreateFilterExpression(filter)));
 
+        products = filter.SortBy switch
+        {
+            SortByType.Name => filter.SortDescending ? products.OrderByDescending(p => p.Name) : products.OrderBy(p => p.Name),
+            SortByType.Price => filter.SortDescending ? products.OrderByDescending(p => p.Price) : products.OrderBy(p => p.Price),
+            SortByType.Date => filter.SortDescending ? products.OrderByDescending(p => p.CreatedAt) : products.OrderBy(p => p.CreatedAt),
+            _ => products
+        };
+
         return [.. products.Select(p => _mapper.Map<ProductListingModel>(p))];
     }
 
@@ -43,6 +52,7 @@ public class ProductService(IMapper mapper, IProductRepository productRepository
                     (!filter.AgeRating.HasValue || p.AgeRating == filter.AgeRating.Value) &&
                     (!filter.Category.HasValue || p.Categories!.Any(c => c.CategoryId == filter.Category.Value)) &&
                     (!filter.MinPrice.HasValue || p.Price >= filter.MinPrice.Value) &&
-                    (!filter.MaxPrice.HasValue || p.Price <= filter.MaxPrice.Value);
+                    (!filter.MaxPrice.HasValue || p.Price <= filter.MaxPrice.Value) &&
+                    (filter.IncludeOutOfStock || p.Stock > 0);
     }
 }

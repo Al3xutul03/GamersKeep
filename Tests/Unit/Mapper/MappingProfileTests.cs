@@ -81,6 +81,7 @@ public class MappingProfileTests
             AgeRatingType.SevenPlus,
             "Strategy board game",
             189.99m,
+            10u,
             new List<CategoryType> { CategoryType.BoardGame, CategoryType.Strategy },
             new List<string> { "https://example.com/catan.jpg" });
 
@@ -169,6 +170,7 @@ public class MappingProfileTests
             AgeRatingType.SixteenPlus,
             "Updated description",
             649.00m,
+            5u,
             new List<CategoryType> { CategoryType.Cooperative });
 
         var entity = _mapper.Map<Product>(dto);

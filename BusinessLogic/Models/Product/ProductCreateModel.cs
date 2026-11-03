@@ -10,5 +10,6 @@ public record ProductCreateModel(
     AgeRatingType AgeRating,
     string Description,
     decimal Price,
+    uint Stock,
     ICollection<CategoryType>? Categories = null,
     ICollection<string>? Images = null);
