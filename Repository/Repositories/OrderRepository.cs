@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Repository.Entity;
 using Repository.Repositories.Abstractions;
 using Repository.Repositories.Generic;
@@ -36,6 +36,14 @@ public class OrderRepository(DbContext context) : BaseRepository<ulong, Order>(c
         return await _dbSet
             .Include(o => o.Items)
             .FirstOrDefaultAsync(o => o.StripeCheckoutSessionId == sessionId);
+    }
+
+    /// <inheritdoc />
+    public async Task<Order?> GetWithItemsAsync(ulong orderId)
+    {
+        return await _dbSet
+            .Include(o => o.Items)
+            .FirstOrDefaultAsync(o => o.Id == orderId);
     }
 
     /// <inheritdoc />

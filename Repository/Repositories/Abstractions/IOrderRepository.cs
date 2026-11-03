@@ -1,4 +1,4 @@
-﻿using Repository.Entity;
+using Repository.Entity;
 using Repository.Repositories.Generic;
 
 namespace Repository.Repositories.Abstractions;
@@ -31,6 +31,13 @@ public interface IOrderRepository : IBaseRepository<ulong, Order>
     /// <param name="sessionId">The Stripe Checkout Session id.</param>
     /// <returns>The order, or <c>null</c> if no order matches.</returns>
     public Task<Order?> GetByStripeSessionIdAsync(string sessionId);
+
+    /// <summary>
+    /// Read an order by its id, including its items.
+    /// </summary>
+    /// <param name="orderId">The ID of the order.</param>
+    /// <returns>The order, or <c>null</c> if not found.</returns>
+    public Task<Order?> GetWithItemsAsync(ulong orderId);
 
     /// <summary>
     /// Read an order by its id, including its items and the customer.
