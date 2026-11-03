@@ -14,11 +14,15 @@ public class OrderService(
     IMapper mapper,
     IOrderRepository orderRepository,
     IStockService stockService,
+    IEmailService emailService,
+    IUserRepository userRepository,
     ILogger<OrderService> logger) : IOrderService
 {
     private readonly IMapper _mapper = mapper;
     private readonly IOrderRepository _orderRepository = orderRepository;
     private readonly IStockService _stockService = stockService;
+    private readonly IEmailService _emailService = emailService;
+    private readonly IUserRepository _userRepository = userRepository;
     private readonly ILogger<OrderService> _logger = logger;
 
     /// <inheritdoc />
@@ -80,6 +84,20 @@ public class OrderService(
 
         // If stock had been deducted (for paid order), restore it atomically
         await _stockService.RestoreStockForOrderAsync(orderId);
+
+        // Queue cancellation email
+        try
+        {
+            var user = await _userRepository.GetByIdAsync(order.UserId, Repository.Enums.Behaviours.IncludeBehaviour.NoInclude);
+            if (user != null && !string.IsNullOrWhiteSpace(user.Email))
+            {
+                await _emailService.SendOrderCancellationEmailAsync(order, user.Email);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to enqueue order cancellation email for order {OrderNumber}.", order.OrderNumber);
+        }
 
         _logger.LogInformation("Order {OrderNumber} (ID: {OrderId}) was successfully cancelled.", order.OrderNumber, orderId);
         return true;

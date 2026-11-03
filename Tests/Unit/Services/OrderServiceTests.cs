@@ -33,6 +33,8 @@ public class OrderServiceTests
         _context = new AppDbContext(options);
         _orderRepo = new OrderRepository(_context);
         _productRepo = new ProductRepository(_context);
+        var userRepo = new UserRepository(_context);
+        var emailService = new EmailService(new EmailQueue(), NullLogger<EmailService>.Instance);
         _stockService = new StockService(_orderRepo, _productRepo, NullLogger<StockService>.Instance);
 
         var services = new ServiceCollection();
@@ -41,7 +43,7 @@ public class OrderServiceTests
         var provider = services.BuildServiceProvider();
         _mapper = provider.GetRequiredService<IMapper>();
 
-        _orderService = new OrderService(_mapper, _orderRepo, _stockService, NullLogger<OrderService>.Instance);
+        _orderService = new OrderService(_mapper, _orderRepo, _stockService, emailService, userRepo, NullLogger<OrderService>.Instance);
 
         await SeedTestDataAsync();
     }

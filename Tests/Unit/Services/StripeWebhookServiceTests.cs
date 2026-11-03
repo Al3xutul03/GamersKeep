@@ -58,11 +58,16 @@ public class StripeWebhookServiceTests
             WebhookSecret = string.Empty // Empty secret activates raw parsing in test environment
         });
 
+        var userRepo = new UserRepository(_context);
+        var emailService = new EmailService(new EmailQueue(), NullLogger<EmailService>.Instance);
+
         _webhookService = new StripeWebhookService(
             _orderRepo,
             _cartService,
             _stockService,
             _processedEventRepo,
+            emailService,
+            userRepo,
             stripeOptions,
             NullLogger<StripeWebhookService>.Instance);
 

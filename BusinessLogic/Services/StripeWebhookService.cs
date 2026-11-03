@@ -18,6 +18,8 @@ public class StripeWebhookService(
     ICartService cartService,
     IStockService stockService,
     IProcessedStripeEventRepository processedEventRepository,
+    IEmailService emailService,
+    IUserRepository userRepository,
     IOptions<StripeOptions> options,
     ILogger<StripeWebhookService> logger) : IStripeWebhookService
 {
@@ -25,6 +27,8 @@ public class StripeWebhookService(
     private readonly ICartService _cartService = cartService;
     private readonly IStockService _stockService = stockService;
     private readonly IProcessedStripeEventRepository _processedEventRepository = processedEventRepository;
+    private readonly IEmailService _emailService = emailService;
+    private readonly IUserRepository _userRepository = userRepository;
     private readonly StripeOptions _options = options.Value;
     private readonly ILogger<StripeWebhookService> _logger = logger;
 
@@ -185,11 +189,31 @@ public class StripeWebhookService(
             _logger.LogWarning(ex, "Failed to clear cart for user {UserId} after order {OrderNumber} was paid.", order.UserId, order.OrderNumber);
         }
 
-        // 4. Record event to guarantee idempotency
+        // 4. Dispatch itemized confirmation email
+        try
+        {
+            var customerEmail = session.CustomerDetails?.Email ?? session.CustomerEmail;
+            if (string.IsNullOrWhiteSpace(customerEmail))
+            {
+                var user = await _userRepository.GetByIdAsync(order.UserId, Repository.Enums.Behaviours.IncludeBehaviour.NoInclude);
+                customerEmail = user?.Email;
+            }
+
+            if (!string.IsNullOrWhiteSpace(customerEmail))
+            {
+                await _emailService.SendOrderConfirmationEmailAsync(order, customerEmail);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to enqueue order confirmation email for order {OrderNumber}.", order.OrderNumber);
+        }
+
+        // 5. Record event to guarantee idempotency
         await RecordProcessedEventAsync(stripeEvent.Id, stripeEvent.Type);
 
         _logger.LogInformation(
-            "Payment confirmed for order {OrderNumber} (ID: {OrderId}). Status updated to Paid, stock decreased, cart cleared.",
+            "Payment confirmed for order {OrderNumber} (ID: {OrderId}). Status updated to Paid, stock decreased, cart cleared, confirmation email queued.",
             order.OrderNumber, order.Id);
 
         return new WebhookHandlingResult(

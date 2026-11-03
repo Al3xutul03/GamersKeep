@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Mapper;
+using BusinessLogic.Mapper;
 using BusinessLogic.Services;
 using BusinessLogic.Options;
 using BusinessLogic.Services.Abstractions;
@@ -49,6 +49,11 @@ builder.Services.AddScoped<ICheckoutService, CheckoutService>();
 builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection(StripeOptions.SectionName));
 builder.Services.AddScoped<IPaymentGateway, StripePaymentGateway>();
 builder.Services.AddScoped<IStripeWebhookService, StripeWebhookService>();
+builder.Services.Configure<MailtrapOptions>(builder.Configuration.GetSection(MailtrapOptions.SectionName));
+builder.Services.AddSingleton<IEmailQueue, EmailQueue>();
+builder.Services.AddScoped<IEmailSender, MailtrapSmtpEmailSender>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddHostedService<EmailDispatchWorker>();
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(o =>
