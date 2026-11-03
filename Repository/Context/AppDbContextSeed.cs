@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Repository.Entity;
 using Repository.Enums.Types;
 
@@ -259,7 +259,34 @@ public static class AppDbContextSeed
             new ProductCategory { ProductId = 34, CategoryId = CategoryType.TravelSized, CreatedAt = seedDate, UpdatedAt = seedDate },
             new ProductCategory { ProductId = 34, CategoryId = CategoryType.Strategy, CreatedAt = seedDate, UpdatedAt = seedDate },
 
-            new ProductCategory { ProductId = 35, CategoryId = CategoryType.Other, CreatedAt = seedDate, UpdatedAt = seedDate }
+            new ProductCategory { ProductId = 35, CategoryId = CategoryType.Other, CreatedAt = seedDate, UpdatedAt = seedDate });
+
+        // Delivery methods available at checkout (at least two, with different costs).
+        modelBuilder.Entity<DeliveryMethod>().HasData(
+            new DeliveryMethod
+            {
+                Id = 1,
+                Name = "Curier standard",
+                Description = "Livrare la adresă prin curier.",
+                EstimatedDelivery = "2-4 zile lucrătoare",
+                Price = 15.00m,
+                IsActive = true,
+                SortOrder = 1,
+                CreatedAt = seedDate,
+                UpdatedAt = seedDate
+            },
+            new DeliveryMethod
+            {
+                Id = 2,
+                Name = "Curier express",
+                Description = "Livrare prioritară la adresă prin curier.",
+                EstimatedDelivery = "1 zi lucrătoare",
+                Price = 25.00m,
+                IsActive = true,
+                SortOrder = 2,
+                CreatedAt = seedDate,
+                UpdatedAt = seedDate
+            }
         );
     }
 }

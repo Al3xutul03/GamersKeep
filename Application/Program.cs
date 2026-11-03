@@ -1,4 +1,4 @@
-using BusinessLogic.Mapper;
+﻿using BusinessLogic.Mapper;
 using BusinessLogic.Services;
 using BusinessLogic.Services.Abstractions;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -32,6 +32,10 @@ builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
 builder.Services.AddScoped<ICartEntryRepository, CartEntryRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IDeliveryMethodRepository, DeliveryMethodRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProcessedStripeEventRepository, ProcessedStripeEventRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -51,6 +55,13 @@ builder.Services
     });
 
 var app = builder.Build();
+
+// Apply pending EF Core migrations on startup (the Docker test container starts with an empty database).
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 if (!app.Environment.IsDevelopment())
 {

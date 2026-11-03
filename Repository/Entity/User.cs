@@ -1,4 +1,4 @@
-namespace Repository.Entity;
+﻿namespace Repository.Entity;
 
 /// <summary>
 /// Database model for user information.
@@ -57,4 +57,14 @@ public class User
     /// Cart entries belonging to the user.
     /// </summary>
     public ICollection<CartEntry> CartEntries { get; set; } = [];
+
+    /// <summary>
+    /// Delivery addresses saved by the user.
+    /// </summary>
+    public ICollection<Address> Addresses { get; set; } = [];
+
+    /// <summary>
+    /// Orders placed by the user.
+    /// </summary>
+    public ICollection<Order> Orders { get; set; } = [];
 }

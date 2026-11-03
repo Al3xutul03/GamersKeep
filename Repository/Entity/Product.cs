@@ -1,4 +1,4 @@
-using Repository.Enums.Types;
+﻿using Repository.Enums.Types;
 
 namespace Repository.Entity;
 
@@ -57,4 +57,9 @@ public class Product
     /// Cart entries referencing this product.
     /// </summary>
     public ICollection<CartEntry> CartEntries { get; set; } = [];
+
+    /// <summary>
+    /// Order items referencing this product.
+    /// </summary>
+    public ICollection<OrderItem> OrderItems { get; set; } = [];
 }
