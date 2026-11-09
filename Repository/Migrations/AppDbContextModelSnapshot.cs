@@ -22,6 +22,99 @@ namespace Repository.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("Repository.Entity.Address", b =>
+                {
+                    b.Property<ulong>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint unsigned");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("County")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<bool>("IsDefault")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Label")
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("addresses", (string)null);
+                });
+
+            modelBuilder.Entity("Repository.Entity.CartEntry", b =>
+                {
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<ulong>("ProductId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<uint>("Quantity")
+                        .HasColumnType("int unsigned");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("UserId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("cart_entries", (string)null);
+                });
+
             modelBuilder.Entity("Repository.Entity.Category", b =>
                 {
                     b.Property<string>("Type")
@@ -223,6 +316,241 @@ namespace Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Repository.Entity.DeliveryMethod", b =>
+                {
+                    b.Property<ulong>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint unsigned");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("EstimatedDelivery")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("delivery_methods", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1ul,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Livrare la adresă prin curier.",
+                            EstimatedDelivery = "2-4 zile lucrătoare",
+                            IsActive = true,
+                            Name = "Curier standard",
+                            Price = 15.00m,
+                            SortOrder = 1,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 2ul,
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Livrare prioritară la adresă prin curier.",
+                            EstimatedDelivery = "1 zi lucrătoare",
+                            IsActive = true,
+                            Name = "Curier express",
+                            Price = 25.00m,
+                            SortOrder = 2,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
+                });
+
+            modelBuilder.Entity("Repository.Entity.Order", b =>
+                {
+                    b.Property<ulong>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint unsigned");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<ulong>("Id"));
+
+                    b.Property<DateTime?>("CancelledAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<decimal>("DeliveryCost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<ulong>("DeliveryMethodId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<string>("DeliveryMethodName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("OrderNumber")
+                        .IsRequired()
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
+
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("RefundedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("ShippingCity")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("ShippingCounty")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("ShippingFullName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.Property<string>("ShippingPhone")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("varchar(30)");
+
+                    b.Property<string>("ShippingPostalCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("ShippingStreet")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.Property<bool>("StockDeducted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("StripeCheckoutSessionId")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("StripePaymentIntentId")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeliveryMethodId");
+
+                    b.HasIndex("OrderNumber")
+                        .IsUnique();
+
+                    b.HasIndex("StripeCheckoutSessionId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId", "CreatedAt");
+
+                    b.ToTable("orders", (string)null);
+                });
+
+            modelBuilder.Entity("Repository.Entity.OrderItem", b =>
+                {
+                    b.Property<ulong>("OrderId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<ulong>("ProductId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<uint>("Quantity")
+                        .HasColumnType("int unsigned");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("OrderId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("order_items", (string)null);
+                });
+
+            modelBuilder.Entity("Repository.Entity.ProcessedStripeEvent", b =>
+                {
+                    b.Property<string>("EventId")
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("ProcessedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("processed_stripe_events", (string)null);
+                });
+
             modelBuilder.Entity("Repository.Entity.Product", b =>
                 {
                     b.Property<ulong>("Id")
@@ -254,6 +582,9 @@ namespace Repository.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<uint>("Stock")
+                        .HasColumnType("int unsigned");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
@@ -270,6 +601,7 @@ namespace Repository.Migrations
                             Description = "Trade, build, and settle the island of Catan in this modern classic strategy board game.",
                             Name = "Catan",
                             Price = 189.99m,
+                            Stock = 15u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -280,6 +612,7 @@ namespace Repository.Migrations
                             Description = "Tile-placement game where players build medieval landscapes and deploy followers.",
                             Name = "Carcassonne",
                             Price = 149.50m,
+                            Stock = 20u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -290,6 +623,7 @@ namespace Repository.Migrations
                             Description = "Cross-country train adventure across historic European cities.",
                             Name = "Ticket to Ride: Europe",
                             Price = 219.00m,
+                            Stock = 12u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -300,6 +634,7 @@ namespace Repository.Migrations
                             Description = "Compete as corporations to transform Mars into a habitable planet.",
                             Name = "Terraforming Mars",
                             Price = 299.99m,
+                            Stock = 10u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -310,6 +645,7 @@ namespace Repository.Migrations
                             Description = "Epic cooperative campaign of tactical dungeon-crawling in a persistent dark fantasy world.",
                             Name = "Gloomhaven",
                             Price = 699.00m,
+                            Stock = 5u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -320,6 +656,7 @@ namespace Repository.Migrations
                             Description = "Work together as a disease control team to save humanity from four deadly outbreaks.",
                             Name = "Pandemic",
                             Price = 179.90m,
+                            Stock = 18u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -330,6 +667,7 @@ namespace Repository.Migrations
                             Description = "Head-to-head civilization building card game for two players.",
                             Name = "7 Wonders Duel",
                             Price = 139.00m,
+                            Stock = 22u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -340,6 +678,7 @@ namespace Repository.Migrations
                             Description = "Social word deduction party game of rival spymasters and secret agents.",
                             Name = "Codenames",
                             Price = 95.00m,
+                            Stock = 30u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -350,6 +689,7 @@ namespace Repository.Migrations
                             Description = "Creative storytelling game using beautifully illustrated surrealist cards.",
                             Name = "Dixit",
                             Price = 159.00m,
+                            Stock = 16u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -360,6 +700,7 @@ namespace Repository.Migrations
                             Description = "Draft colorful ceramic tiles to decorate the Royal Palace of Evora.",
                             Name = "Azul",
                             Price = 195.00m,
+                            Stock = 14u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -370,6 +711,7 @@ namespace Repository.Migrations
                             Description = "Engine-building board game about attracting diverse bird species to wildlife preserves.",
                             Name = "Wingspan",
                             Price = 275.00m,
+                            Stock = 9u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -380,6 +722,7 @@ namespace Repository.Migrations
                             Description = "Alternate-history 1920s strategy game of farming, mechs, and territory control.",
                             Name = "Scythe",
                             Price = 399.00m,
+                            Stock = 7u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -390,6 +733,7 @@ namespace Repository.Migrations
                             Description = "Asymmetric woodland wargame of adventure and might.",
                             Name = "Root",
                             Price = 289.00m,
+                            Stock = 11u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -400,6 +744,7 @@ namespace Repository.Migrations
                             Description = "Cooperative living card game of cosmic horror and eldritch mystery.",
                             Name = "Arkham Horror: The Card Game",
                             Price = 295.00m,
+                            Stock = 8u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -410,6 +755,7 @@ namespace Repository.Migrations
                             Description = "Cooperative crime investigation game set in Victorian London.",
                             Name = "Sherlock Holmes Consulting Detective",
                             Price = 235.00m,
+                            Stock = 6u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -420,6 +766,7 @@ namespace Repository.Migrations
                             Description = "Essential core rulebook for creating characters and playing the world's greatest TTRPG.",
                             Name = "Dungeons & Dragons: Player's Handbook",
                             Price = 229.00m,
+                            Stock = 25u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -430,6 +777,7 @@ namespace Repository.Migrations
                             Description = "Bestiary filled with iconic fantasy creatures, dragons, and villains.",
                             Name = "Dungeons & Dragons: Monster Manual",
                             Price = 229.00m,
+                            Stock = 20u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -440,6 +788,7 @@ namespace Repository.Migrations
                             Description = "Core rulebook for Lovecraftian horror investigative roleplaying.",
                             Name = "Call of Cthulhu: Keeper Rulebook",
                             Price = 249.00m,
+                            Stock = 12u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -450,6 +799,7 @@ namespace Repository.Migrations
                             Description = "Two ready-to-play 60-card decks designed to learn Magic: The Gathering.",
                             Name = "Magic: The Gathering - Foundations Starter Kit",
                             Price = 99.00m,
+                            Stock = 35u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -460,6 +810,7 @@ namespace Repository.Migrations
                             Description = "Collector's box with booster packs, card sleeves, energy cards, and condition markers.",
                             Name = "Pokemon TCG: Elite Trainer Box",
                             Price = 259.00m,
+                            Stock = 18u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -470,6 +821,7 @@ namespace Repository.Migrations
                             Description = "Three complete collectible dueling decks featuring iconic cards.",
                             Name = "Yu-Gi-Oh! Legendary Decks",
                             Price = 165.00m,
+                            Stock = 15u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -480,6 +832,7 @@ namespace Repository.Migrations
                             Description = "Complete tabletop wargaming starter box with Space Marines, Tyranids, and terrain.",
                             Name = "Warhammer 40,000: Ultimate Starter Set",
                             Price = 749.00m,
+                            Stock = 4u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -490,6 +843,7 @@ namespace Repository.Migrations
                             Description = "High-pigment acrylic paints and starter brush for miniature hobbyists.",
                             Name = "Citadel Base Paint Set",
                             Price = 185.00m,
+                            Stock = 25u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -500,6 +854,7 @@ namespace Repository.Migrations
                             Description = "Precision synthetic and sable brushes for basecoating, drybrushing, and fine details.",
                             Name = "Army Painter Wargamer Brush Set",
                             Price = 115.00m,
+                            Stock = 30u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -510,6 +865,7 @@ namespace Repository.Migrations
                             Description = "Highly detailed pre-primed plastic dragon miniature for TTRPGs.",
                             Name = "Nolzur's Marvelous Unpainted Miniatures: Dragon",
                             Price = 145.00m,
+                            Stock = 10u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -520,6 +876,7 @@ namespace Repository.Migrations
                             Description = "Snap-together 3D dungeon walls, doors, and pillars for tabletop encounters.",
                             Name = "Modular Dungeon Terrain Core Set",
                             Price = 320.00m,
+                            Stock = 8u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -530,6 +887,7 @@ namespace Repository.Migrations
                             Description = "Durable polypropylene trading card sleeves with textured matte backing.",
                             Name = "Dragon Shield Matte Sleeves (100ct)",
                             Price = 55.00m,
+                            Stock = 50u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -540,6 +898,7 @@ namespace Repository.Migrations
                             Description = "Portable PU leather and velvet tray to keep dice rolls contained.",
                             Name = "Foldable Velvet Dice Tray",
                             Price = 65.00m,
+                            Stock = 40u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -550,6 +909,7 @@ namespace Repository.Migrations
                             Description = "Premium interlocking jigsaw puzzle featuring a scenic fantasy kingdom.",
                             Name = "Ravensburger 1000pc Fantasy Castle Puzzle",
                             Price = 89.00m,
+                            Stock = 22u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -560,6 +920,7 @@ namespace Repository.Migrations
                             Description = "Fast-paced pocket-sized pattern recognition game in a travel tin.",
                             Name = "Dobble (Spot It!)",
                             Price = 69.00m,
+                            Stock = 35u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -570,6 +931,7 @@ namespace Repository.Migrations
                             Description = "Adult party card game of kitty-powered Russian Roulette.",
                             Name = "Exploding Kittens: NSFW Edition",
                             Price = 109.00m,
+                            Stock = 19u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -580,6 +942,7 @@ namespace Repository.Migrations
                             Description = "Romantic comedy board game for two players where you create and play out a relationship.",
                             Name = "Fog of Love",
                             Price = 245.00m,
+                            Stock = 7u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -590,6 +953,7 @@ namespace Repository.Migrations
                             Description = "Cooperative color-matching game with chunky wooden fruit pieces for young children.",
                             Name = "My First Orchard",
                             Price = 125.00m,
+                            Stock = 14u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -600,6 +964,7 @@ namespace Repository.Migrations
                             Description = "Boardless two-player abstract strategy game with bakelite tiles in a travel pouch.",
                             Name = "Hive Pocket",
                             Price = 119.00m,
+                            Stock = 17u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -610,6 +975,7 @@ namespace Repository.Migrations
                             Description = "Official D20 shield enamel pin badge for backpacks and lanyards.",
                             Name = "GamersKeep Collector's Enamel Pin",
                             Price = 35.00m,
+                            Stock = 60u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
@@ -1352,6 +1718,74 @@ namespace Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Repository.Entity.Address", b =>
+                {
+                    b.HasOne("Repository.Entity.User", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Repository.Entity.CartEntry", b =>
+                {
+                    b.HasOne("Repository.Entity.Product", "Product")
+                        .WithMany("CartEntries")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Repository.Entity.User", "User")
+                        .WithMany("CartEntries")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Repository.Entity.Order", b =>
+                {
+                    b.HasOne("Repository.Entity.DeliveryMethod", "DeliveryMethod")
+                        .WithMany("Orders")
+                        .HasForeignKey("DeliveryMethodId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Repository.Entity.User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("DeliveryMethod");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Repository.Entity.OrderItem", b =>
+                {
+                    b.HasOne("Repository.Entity.Order", "Order")
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Repository.Entity.Product", "Product")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Repository.Entity.ProductCategory", b =>
                 {
                     b.HasOne("Repository.Entity.Category", "Category")
@@ -1387,11 +1821,34 @@ namespace Repository.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("Repository.Entity.DeliveryMethod", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Repository.Entity.Order", b =>
+                {
+                    b.Navigation("Items");
+                });
+
             modelBuilder.Entity("Repository.Entity.Product", b =>
                 {
+                    b.Navigation("CartEntries");
+
                     b.Navigation("Categories");
 
                     b.Navigation("Images");
+
+                    b.Navigation("OrderItems");
+                });
+
+            modelBuilder.Entity("Repository.Entity.User", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("CartEntries");
+
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

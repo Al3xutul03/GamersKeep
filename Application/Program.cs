@@ -1,5 +1,6 @@
 using BusinessLogic.Mapper;
 using BusinessLogic.Services;
+using BusinessLogic.Options;
 using BusinessLogic.Services.Abstractions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
@@ -31,9 +32,28 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
 builder.Services.AddScoped<IProductImageRepository, ProductImageRepository>();
+builder.Services.AddScoped<ICartEntryRepository, CartEntryRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<IDeliveryMethodRepository, DeliveryMethodRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IProcessedStripeEventRepository, ProcessedStripeEventRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IStockService, StockService>();
+builder.Services.AddScoped<IAddressService, AddressService>();
+builder.Services.AddScoped<IDeliveryMethodService, DeliveryMethodService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ICheckoutService, CheckoutService>();
+builder.Services.Configure<StripeOptions>(builder.Configuration.GetSection(StripeOptions.SectionName));
+builder.Services.AddScoped<IPaymentGateway, StripePaymentGateway>();
+builder.Services.AddScoped<IStripeWebhookService, StripeWebhookService>();
+builder.Services.Configure<MailtrapOptions>(builder.Configuration.GetSection(MailtrapOptions.SectionName));
+builder.Services.AddSingleton<IEmailQueue, EmailQueue>();
+builder.Services.AddScoped<IEmailSender, MailtrapSmtpEmailSender>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddHostedService<EmailDispatchWorker>();
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(o =>
@@ -49,6 +69,13 @@ builder.Services
     });
 
 var app = builder.Build();
+
+// Apply pending EF Core migrations on startup (the Docker test container starts with an empty database).
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    db.Database.Migrate();
+}
 
 if (!app.Environment.IsDevelopment())
 {

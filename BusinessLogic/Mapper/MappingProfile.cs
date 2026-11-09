@@ -1,6 +1,10 @@
 using AutoMapper;
 using BusinessLogic.Json;
 using BusinessLogic.Json.Model;
+using BusinessLogic.Models.Address;
+using BusinessLogic.Models.CartEntry;
+using BusinessLogic.Models.DeliveryMethod;
+using BusinessLogic.Models.Order;
 using BusinessLogic.Models.Product;
 using BusinessLogic.Models.User;
 using Newtonsoft.Json;
@@ -71,5 +75,35 @@ public class MappingProfile : Profile
                 opt => opt.MapFrom(src => src.Images != null
                     ? src.Images.Select(i => new ProductImage { ProductId = src.Id, ImageUrl = i }).ToList()
                     : new List<ProductImage>()));
+
+        CreateMap<CartEntryCreateModel, CartEntry>();
+        CreateMap<CartEntry, CartEntryReadModel>()
+            .ForCtorParam(nameof(CartEntryReadModel.Product),
+                opt => opt.MapFrom(src => src.Product));
+        CreateMap<CartEntryUpdateModel, CartEntry>();
+
+        // Address mappings
+        CreateMap<Address, AddressDto>();
+        CreateMap<AddressCreateModel, Address>()
+            .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow))
+            .ForMember(dest => dest.UpdatedAt, opt => opt.MapFrom(_ => DateTime.UtcNow));
+
+        // DeliveryMethod mappings
+        CreateMap<DeliveryMethod, DeliveryMethodDto>();
+
+        // Order mappings
+        CreateMap<OrderItem, OrderItemDto>()
+            .ForCtorParam(nameof(OrderItemDto.TotalPrice),
+                opt => opt.MapFrom(src => src.UnitPrice * src.Quantity));
+
+        CreateMap<Order, OrderListingDto>()
+            .ForCtorParam(nameof(OrderListingDto.ItemCount),
+                opt => opt.MapFrom(src => src.Items.Count))
+            .ForCtorParam(nameof(OrderListingDto.Items),
+                opt => opt.MapFrom(src => src.Items));
+
+        CreateMap<Order, OrderDetailDto>()
+            .ForCtorParam(nameof(OrderDetailDto.Items),
+                opt => opt.MapFrom(src => src.Items));
     }
 }
