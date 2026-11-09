@@ -1,17 +1,75 @@
 ﻿@{
     ViewData["Title"] = "Acasă";
+
+    var categories = new (string Key, string Label)[]
+    {
+        ("Strategy", "Strategie"),
+        ("Family", "Familie"),
+        ("Party", "Party"),
+        ("Cooperative", "Cooperative"),
+        ("TTRPG", "TTRPG"),
+        ("TradingCardGame", "Jocuri de cărți"),
+        ("Miniatures", "Miniaturi"),
+        ("Puzzle", "Puzzle"),
+        ("Accessory", "Accesorii")
+    };
 }
 
-<section class="hero">
-    <h1 class="hero__title">Gamer's Keep</h1>
-    <p class="hero__text">Destinația ta pentru jocuri de societate, TTRPG-uri și accesorii epice.</p>
+<section class="hero-landing hero-landing--image" style="--hero-image: url('@Url.Content("~/img/hero.jpg")')">
+    <div class="hero-landing__content">
+        <span class="eyebrow">Magazin de jocuri de societate</span>
+        <h1 class="hero-landing__title">Găsește jocul pentru următoarea ta seară de joc.</h1>
+        <p class="hero-landing__text">Jocuri de societate, TTRPG-uri, miniaturi și accesorii epice, cu livrare prin curier.</p>
 
-    <div class="hero__actions">
-        <a class="btn btn--primary" asp-controller="Catalog" asp-action="Index">Explorează Catalogul</a>
+        <div class="hero__actions">
+            <a class="btn btn--primary btn--lg" asp-controller="Catalog" asp-action="Index">Explorează catalogul</a>
 
-        @if (User.Identity?.IsAuthenticated != true)
+            @if (User.Identity?.IsAuthenticated != true)
+            {
+                <a class="btn btn--ghost btn--lg" asp-controller="Account" asp-action="Register">Creează cont</a>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="section__head">
+        <h2 class="section__title">Alege după categorie</h2>
+        <a asp-controller="Catalog" asp-action="Index">Vezi tot catalogul</a>
+    </div>
+
+    <div class="chip-row">
+        @foreach (var c in categories)
         {
-            <a class="btn btn--ghost" asp-controller="Account" asp-action="Register">Creează cont</a>
+            <a class="chip" asp-controller="Catalog" asp-action="Index" asp-route-Category="@c.Key">@c.Label</a>
         }
+    </div>
+</section>
+
+<section class="section">
+    <div class="feature-grid">
+        <article class="feature">
+            <div class="feature__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            </div>
+            <h3 class="feature__title">Livrare prin curier</h3>
+            <p class="feature__text">Alegi între livrare standard și express, direct la adresa ta.</p>
+        </article>
+
+        <article class="feature">
+            <div class="feature__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 class="feature__title">Plată securizată</h3>
+            <p class="feature__text">Plătești prin Stripe. Datele cardului nu trec prin serverul nostru.</p>
+        </article>
+
+        <article class="feature">
+            <div class="feature__icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            </div>
+            <h3 class="feature__title">Stoc verificat</h3>
+            <p class="feature__text">Disponibilitatea produselor este verificată înainte de plasarea comenzii.</p>
+        </article>
     </div>
 </section>

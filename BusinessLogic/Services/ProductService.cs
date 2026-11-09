@@ -15,9 +15,8 @@ namespace BusinessLogic.Services;
 public class ProductService(IMapper mapper, IProductRepository productRepository)
     : BaseService<ulong, Product, ProductReadModel, ProductCreateModel, ProductUpdateModel>(mapper, productRepository), IProductService
 {
-    private IProductRepository ProductRepository => (IProductRepository) _repository;
+    private IProductRepository ProductRepository => (IProductRepository)_repository;
 
-    /// <inheritdoc />
     public async Task<ulong> GetNoPages(ulong page_size, SearchFilterModel filter)
     {
         var count = await ProductRepository.GetNoPagesAsync(page_size, q =>
@@ -27,11 +26,11 @@ public class ProductService(IMapper mapper, IProductRepository productRepository
         return count;
     }
 
-    /// <inheritdoc />
     public async Task<ICollection<ProductListingModel>> GetProductListingsAsync(ulong page_no, ulong page_size, SearchFilterModel filter)
     {
-        var products = await ProductRepository.GetProductPageAsync(page_no, page_size, IncludeBehaviour.GivenIncludes,q =>
-            q.Include(p => p.Categories)
+        var products = await ProductRepository.GetProductPageAsync(page_no, page_size, IncludeBehaviour.GivenIncludes, q =>
+            q.Include(p => p.Images)
+             .Include(p => p.Categories)
              .ThenInclude(pc => pc.Category)
              .Where(CreateFilterExpression(filter)));
 

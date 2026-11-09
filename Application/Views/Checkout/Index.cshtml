@@ -1,78 +1,259 @@
-﻿@model Application.Models.CheckoutViewModel
+﻿@using System.Globalization
+@model Application.Models.CheckoutViewModel
 
 @{
     ViewData["Title"] = "Finalizare Comandă";
+    var inv = CultureInfo.InvariantCulture;
 }
 
-<div class="checkout-page" style="max-width: 800px; margin: 0 auto;">
-    <h1 style="margin-bottom: 2rem;">Finalizare Comandă</h1>
+<style>
+    .checkout-form [hidden] { display: none !important; }
+</style>
 
-    <form asp-controller="Checkout" asp-action="ProcessOrder" method="post" class="checkout-form">
-        <fieldset style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+<div class="checkout-page" style="max-width: 800px; margin: 0 auto;">
+    <h1 style="margin-bottom: 1.5rem;">Finalizare Comandă</h1>
+
+    <ol style="display: flex; gap: 1.5rem; list-style: none; padding: 0; margin: 0 0 2rem; flex-wrap: wrap;">
+        <li data-step-indicator="1"><strong>1.</strong> Adresă</li>
+        <li data-step-indicator="2"><strong>2.</strong> Livrare</li>
+        <li data-step-indicator="3"><strong>3.</strong> Rezumat</li>
+        <li data-step-indicator="4"><strong>4.</strong> Plată</li>
+    </ol>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert--error" role="alert" style="margin-bottom: 1.5rem;">
+            <div asp-validation-summary="All"></div>
+        </div>
+    }
+
+    <form asp-controller="Checkout" asp-action="ProcessOrder" method="post" class="checkout-form" novalidate data-submit-lock>
+        <fieldset data-step="1" style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
             <legend style="padding: 0 0.5rem; font-weight: bold;">1. Adresă de Livrare</legend>
 
-            <div class="field" style="margin-bottom: 1rem;">
-                <label class="field__label">Nume Complet</label>
-                <input type="text" asp-for="FullName" class="field__input" required />
-            </div>
+            @foreach (var a in Model.SavedAddresses)
+            {
+                <label style="display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.5rem 0; cursor: pointer;">
+                    <input type="radio" name="SelectedAddressId" value="@a.Id"
+                           data-address-text="@($"{a.FullName}, {a.Phone} — {a.Street}, {a.City}, {a.County}, {a.PostalCode}")"
+                           checked="@(Model.SelectedAddressId == a.Id)" />
+                    <span>
+                        <strong>@(string.IsNullOrWhiteSpace(a.Label) ? a.FullName : a.Label)</strong>
+                        @if (a.IsDefault)
+                        {
+                            <small> (implicită)</small>
+                        }
+                        <br />
+                        <small>@a.FullName, @a.Phone — @a.Street, @a.City, @a.County, @a.PostalCode</small>
+                    </span>
+                </label>
+            }
 
-            <div class="field" style="margin-bottom: 1rem;">
-                <label class="field__label">Email</label>
-                <input type="email" asp-for="Email" class="field__input" required />
-            </div>
+            <label style="display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; cursor: pointer;">
+                <input type="radio" name="SelectedAddressId" value="0" checked="@(Model.SelectedAddressId == 0)" />
+                <span><strong>Adresă nouă</strong></span>
+            </label>
+            <span asp-validation-for="SelectedAddressId" class="field__error"></span>
 
-            <div class="field" style="margin-bottom: 1rem;">
-                <label class="field__label">Adresă</label>
-                <input type="text" asp-for="Address" class="field__input" required />
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <div class="field">
-                    <label class="field__label">Oraș</label>
-                    <input type="text" asp-for="City" class="field__input" required />
+            <div data-new-address style="margin-top: 1rem;">
+                <div class="field" style="margin-bottom: 1rem;">
+                    <label asp-for="FullName" class="field__label">Nume Complet</label>
+                    <input asp-for="FullName" class="field__input" autocomplete="name" />
+                    <span asp-validation-for="FullName" class="field__error"></span>
                 </div>
-                <div class="field">
-                    <label class="field__label">Cod Poștal</label>
-                    <input type="text" asp-for="PostalCode" class="field__input" required />
+
+                <div class="field" style="margin-bottom: 1rem;">
+                    <label asp-for="Phone" class="field__label">Telefon</label>
+                    <input asp-for="Phone" type="tel" class="field__input" autocomplete="tel" />
+                    <span asp-validation-for="Phone" class="field__error"></span>
+                </div>
+
+                <div class="field" style="margin-bottom: 1rem;">
+                    <label asp-for="Street" class="field__label">Stradă, număr, bloc, apartament</label>
+                    <input asp-for="Street" class="field__input" autocomplete="street-address" />
+                    <span asp-validation-for="Street" class="field__error"></span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                    <div class="field">
+                        <label asp-for="City" class="field__label">Oraș</label>
+                        <input asp-for="City" class="field__input" autocomplete="address-level2" />
+                        <span asp-validation-for="City" class="field__error"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="County" class="field__label">Județ</label>
+                        <input asp-for="County" class="field__input" autocomplete="address-level1" />
+                        <span asp-validation-for="County" class="field__error"></span>
+                    </div>
+                    <div class="field">
+                        <label asp-for="PostalCode" class="field__label">Cod Poștal</label>
+                        <input asp-for="PostalCode" class="field__input" autocomplete="postal-code" />
+                        <span asp-validation-for="PostalCode" class="field__error"></span>
+                    </div>
                 </div>
             </div>
         </fieldset>
 
-        <fieldset style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <fieldset data-step="2" style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
             <legend style="padding: 0 0.5rem; font-weight: bold;">2. Metodă de Livrare</legend>
 
-            <div style="display: flex; gap: 2rem; margin-top: 0.5rem;">
-                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                    <input type="radio" asp-for="DeliveryMethod" value="Standard" checked />
-                    <span>Curier Standard (15.00 RON)</span>
+            @foreach (var d in Model.DeliveryMethods)
+            {
+                <label style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; padding: 0.75rem 0; cursor: pointer;">
+                    <span style="display: flex; gap: 0.75rem;">
+                        <input type="radio" name="DeliveryMethodId" value="@d.Id" required
+                               data-name="@d.Name" data-price="@d.Price.ToString("F2", inv)"
+                               checked="@(Model.DeliveryMethodId == d.Id)" />
+                        <span>
+                            <strong>@d.Name</strong><br />
+                            <small>@d.Description · @d.EstimatedDelivery</small>
+                        </span>
+                    </span>
+                    <strong>@d.Price.ToString("F2") RON</strong>
                 </label>
-                <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
-                    <input type="radio" asp-for="DeliveryMethod" value="Express" />
-                    <span>Curier Express (25.00 RON)</span>
-                </label>
-            </div>
+            }
+            <span asp-validation-for="DeliveryMethodId" class="field__error"></span>
         </fieldset>
 
-        <fieldset style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-            <legend style="padding: 0 0.5rem; font-weight: bold;">3. Detalii Plată (Stripe)</legend>
+        <fieldset data-step="3" style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <legend style="padding: 0 0.5rem; font-weight: bold;">3. Rezumat Comandă</legend>
 
-            <div class="field" style="margin-bottom: 1rem;">
-                <label class="field__label">Număr Card</label>
-                <input type="text" class="field__input" placeholder="4242 •••• •••• 4242" required />
+            @foreach (var item in Model.Cart.Items)
+            {
+                <div style="display: flex; justify-content: space-between; padding: 0.4rem 0;">
+                    <span>@item.ProductName × @item.Quantity</span>
+                    <span>@item.TotalPrice.ToString("F2") RON</span>
+                </div>
+            }
+
+            <hr style="margin: 1rem 0;" />
+
+            <div style="display: flex; justify-content: space-between;">
+                <span>Subtotal</span>
+                <span data-subtotal="@Model.Cart.GrandTotal.ToString("F2", inv)">@Model.Cart.GrandTotal.ToString("F2") RON</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+                <span>Livrare (<span data-summary="delivery-name"></span>)</span>
+                <span data-summary="delivery-price"></span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 1.2rem;">
+                <strong>Total</strong>
+                <strong data-summary="total"></strong>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                <div class="field">
-                    <label class="field__label">Expirare (MM/YY)</label>
-                    <input type="text" class="field__input" placeholder="MM/YY" required />
-                </div>
-                <div class="field">
-                    <label class="field__label">CVC</label>
-                    <input type="text" class="field__input" placeholder="123" required />
-                </div>
-            </div>
+            <hr style="margin: 1rem 0;" />
+
+            <p style="margin: 0;"><strong>Livrare la:</strong></p>
+            <p style="margin: 0;" data-summary="address"></p>
         </fieldset>
 
-        <button type="submit" class="btn btn--primary btn--block" style="font-size: 1.1rem; padding: 0.8rem;">Plătește și Plasează Comanda</button>
+        <fieldset data-step="4" style="border: 1px solid var(--color-border); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+            <legend style="padding: 0 0.5rem; font-weight: bold;">4. Plată</legend>
+            <p style="margin: 0;">Vei fi redirecționat către pagina securizată Stripe pentru a introduce datele cardului. Comanda este confirmată după procesarea plății.</p>
+        </fieldset>
+
+        <div style="display: flex; justify-content: space-between; gap: 1rem;">
+            <button type="button" class="btn btn--ghost" data-prev>Înapoi</button>
+            <button type="button" class="btn btn--primary" data-next>Continuă</button>
+            <button type="submit" class="btn btn--primary" data-submit data-loading-text="Se redirecționează…">Plătește cu Stripe</button>
+        </div>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var form = document.querySelector('.checkout-form');
+            var steps = Array.prototype.slice.call(form.querySelectorAll('[data-step]'));
+            var indicators = document.querySelectorAll('[data-step-indicator]');
+            var prev = form.querySelector('[data-prev]');
+            var next = form.querySelector('[data-next]');
+            var submit = form.querySelector('[data-submit]');
+            var newBox = form.querySelector('[data-new-address]');
+            var newInputs = Array.prototype.slice.call(newBox.querySelectorAll('input'));
+            var current = 1;
+
+            function money(v) { return v.toFixed(2) + ' RON'; }
+
+            function selectedAddress() {
+                return form.querySelector('input[name="SelectedAddressId"]:checked');
+            }
+
+            function isNewAddress() {
+                var sel = selectedAddress();
+                return !sel || sel.value === '0';
+            }
+
+            function syncNewAddress() {
+                var isNew = isNewAddress();
+                newBox.hidden = !isNew;
+                newInputs.forEach(function (i) { i.required = isNew; });
+            }
+
+            function addressText() {
+                if (!isNewAddress()) return selectedAddress().dataset.addressText;
+                var f = function (n) { return form.querySelector('[name="' + n + '"]').value.trim(); };
+                return f('FullName') + ', ' + f('Phone') + ' — ' + f('Street') + ', ' + f('City') + ', ' + f('County') + ', ' + f('PostalCode');
+            }
+
+            function fillSummary() {
+                var chosen = form.querySelector('input[name="DeliveryMethodId"]:checked');
+                var price = chosen ? parseFloat(chosen.dataset.price) : 0;
+                var subtotal = parseFloat(form.querySelector('[data-subtotal]').dataset.subtotal);
+                form.querySelector('[data-summary="delivery-name"]').textContent = chosen ? chosen.dataset.name : '';
+                form.querySelector('[data-summary="delivery-price"]').textContent = money(price);
+                form.querySelector('[data-summary="total"]').textContent = money(subtotal + price);
+                form.querySelector('[data-summary="address"]').textContent = addressText();
+            }
+
+            function stepValid(n) {
+                var fields = steps[n - 1].querySelectorAll('input');
+                for (var i = 0; i < fields.length; i++) {
+                    if (!fields[i].checkValidity()) {
+                        fields[i].reportValidity();
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            function render() {
+                steps.forEach(function (s, i) { s.hidden = (i + 1) !== current; });
+                indicators.forEach(function (el, i) {
+                    el.style.fontWeight = (i + 1) === current ? '700' : '400';
+                    el.style.opacity = (i + 1) <= current ? '1' : '0.5';
+                });
+                prev.hidden = current === 1;
+                next.hidden = current === steps.length;
+                submit.hidden = current !== steps.length;
+                if (current === 3) fillSummary();
+            }
+
+            form.querySelectorAll('input[name="SelectedAddressId"]').forEach(function (r) {
+                r.addEventListener('change', syncNewAddress);
+            });
+
+            next.addEventListener('click', function () {
+                if (!stepValid(current)) return;
+                current++;
+                render();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            prev.addEventListener('click', function () {
+                current--;
+                render();
+            });
+
+            form.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' && current < steps.length && e.target.tagName === 'INPUT' && e.target.type !== 'radio') {
+                    e.preventDefault();
+                    next.click();
+                }
+            });
+
+            syncNewAddress();
+            render();
+        })();
+    </script>
+}

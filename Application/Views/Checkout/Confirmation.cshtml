@@ -4,16 +4,41 @@
     ViewData["Title"] = "Comandă Confirmată";
 }
 
-<div class="confirmation-page" style="max-width: 600px; margin: 3rem auto; text-align: center;">
-    <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
-    <h1>Îți mulțumim pentru comandă!</h1>
-    <p class="hero__text" style="margin: 1rem 0;">Comanda ta a fost plasată cu succes.</p>
-
-    <div style="background: var(--color-surface); padding: 1.5rem; border-radius: 8px; margin: 2rem 0; text-align: left;">
-        <p style="margin-bottom: 0.5rem;"><strong>Număr comandă:</strong> <span style="color: var(--color-primary);">@Model.OrderNumber</span></p>
-        <p style="margin-bottom: 0.5rem;"><strong>Email confirmare:</strong> @Model.CustomerEmail</p>
-        <p style="margin-bottom: 0;"><strong>Total achitat:</strong> @Model.TotalAmount.ToString("F2") RON</p>
+<div class="confirmation-page" style="max-width: 640px; margin: 3rem auto;">
+    <div style="text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">@(Model.IsPaid ? "🎉" : "⏳")</div>
+        <h1>@(Model.IsPaid ? "Îți mulțumim pentru comandă!" : "Comanda ta este în curs de procesare")</h1>
+        <p class="hero__text" style="margin: 1rem 0;">
+            @(Model.IsPaid
+                ? "Plata a fost confirmată și comanda ta a fost plasată."
+                : "Așteptăm confirmarea plății. Reîncarcă pagina în câteva secunde.")
+        </p>
     </div>
 
-    <a asp-controller="Catalog" asp-action="Index" class="btn btn--primary">Înapoi la Catalog</a>
+    <div style="background: var(--color-surface); padding: 1.5rem; border-radius: 8px; margin: 2rem 0;">
+        <p style="margin-bottom: 0.5rem;"><strong>Număr comandă:</strong> <span style="color: var(--color-primary);">@Model.OrderNumber</span></p>
+        <p style="margin-bottom: 0.5rem;"><strong>Email confirmare:</strong> @Model.CustomerEmail</p>
+        <p style="margin-bottom: 0.5rem;"><strong>Livrare:</strong> @Model.DeliveryMethodName</p>
+        <p style="margin-bottom: 1rem;"><strong>Adresă:</strong> @Model.ShippingAddress</p>
+
+        @foreach (var item in Model.Items)
+        {
+            <div style="display: flex; justify-content: space-between; padding: 0.3rem 0;">
+                <span>@item.ProductName × @item.Quantity</span>
+                <span>@item.TotalPrice.ToString("F2") RON</span>
+            </div>
+        }
+
+        <hr style="margin: 1rem 0;" />
+
+        <div style="display: flex; justify-content: space-between;"><span>Subtotal</span><span>@Model.Subtotal.ToString("F2") RON</span></div>
+        <div style="display: flex; justify-content: space-between;"><span>Livrare</span><span>@Model.DeliveryCost.ToString("F2") RON</span></div>
+        <div style="display: flex; justify-content: space-between; font-size: 1.2rem; margin-top: 0.5rem;">
+            <strong>Total</strong><strong>@Model.TotalAmount.ToString("F2") RON</strong>
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <a asp-controller="Catalog" asp-action="Index" class="btn btn--primary">Înapoi la Catalog</a>
+    </div>
 </div>
