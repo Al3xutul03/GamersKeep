@@ -51,7 +51,7 @@ builder.Services.AddScoped<IPaymentGateway, StripePaymentGateway>();
 builder.Services.AddScoped<IStripeWebhookService, StripeWebhookService>();
 builder.Services.Configure<MailtrapOptions>(builder.Configuration.GetSection(MailtrapOptions.SectionName));
 builder.Services.AddSingleton<IEmailQueue, EmailQueue>();
-builder.Services.AddScoped<IEmailSender, MailtrapSmtpEmailSender>();
+builder.Services.AddSingleton<IEmailSender, MailtrapSmtpEmailSender>(); 
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddHostedService<EmailDispatchWorker>();
 builder.Services

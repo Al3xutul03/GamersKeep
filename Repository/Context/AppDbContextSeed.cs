@@ -4,18 +4,13 @@ using Repository.Enums.Types;
 
 namespace Repository.Context;
 
-/// <summary>
-/// Provides initial seed data for testing and development.
-/// </summary>
 public static class AppDbContextSeed
 {
     public static void SeedData(ModelBuilder modelBuilder)
     {
         var seedDate = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-        // Pre-computed BCrypt hash for "Password123!"
         const string defaultPasswordHash = "$2a$11$K7Tq1Z9z8mJ9V6Q7X5R8uO1Y3W2E4R6T8Y0U2I4O6P8A0S2D4F6G8";
 
-        // 1. Seed 5 Users (3 simple users, 2 administrators)
         modelBuilder.Entity<User>().HasData(
             new User
             {
@@ -74,7 +69,6 @@ public static class AppDbContextSeed
             }
         );
 
-        // 2. Seed all CategoryType entries (all 25 enum values)
         modelBuilder.Entity<Category>().HasData(
             new Category { Type = CategoryType.Strategy, Description = "Games focused on tactical planning, resource management, and strategic decision-making.", CreatedAt = seedDate, UpdatedAt = seedDate },
             new Category { Type = CategoryType.CrimeAndMistery, Description = "Investigative games involving deduction, solving crimes, and uncovering secrets.", CreatedAt = seedDate, UpdatedAt = seedDate },
@@ -103,7 +97,6 @@ public static class AppDbContextSeed
             new Category { Type = CategoryType.Other, Description = "Miscellaneous tabletop items, novelty gifts, and merchandise.", CreatedAt = seedDate, UpdatedAt = seedDate }
         );
 
-        // 3. Seed 35 Products (no ProductImages)
         modelBuilder.Entity<Product>().HasData(
             new Product { Id = 1, Name = "Catan", AgeRating = AgeRatingType.SevenPlus, Price = 189.99m, Stock = 15, Description = "Trade, build, and settle the island of Catan in this modern classic strategy board game.", CreatedAt = seedDate, UpdatedAt = seedDate },
             new Product { Id = 2, Name = "Carcassonne", AgeRating = AgeRatingType.SevenPlus, Price = 149.50m, Stock = 20, Description = "Tile-placement game where players build medieval landscapes and deploy followers.", CreatedAt = seedDate, UpdatedAt = seedDate },
@@ -142,7 +135,6 @@ public static class AppDbContextSeed
             new Product { Id = 35, Name = "GamersKeep Collector's Enamel Pin", AgeRating = AgeRatingType.ThreePlus, Price = 35.00m, Stock = 60, Description = "Official D20 shield enamel pin badge for backpacks and lanyards.", CreatedAt = seedDate, UpdatedAt = seedDate }
         );
 
-        // 4. Seed ProductCategories (ensuring all 25 CategoryType values are linked to products)
         modelBuilder.Entity<ProductCategory>().HasData(
             new ProductCategory { ProductId = 1, CategoryId = CategoryType.BoardGame, CreatedAt = seedDate, UpdatedAt = seedDate },
             new ProductCategory { ProductId = 1, CategoryId = CategoryType.Strategy, CreatedAt = seedDate, UpdatedAt = seedDate },
@@ -261,7 +253,6 @@ public static class AppDbContextSeed
 
             new ProductCategory { ProductId = 35, CategoryId = CategoryType.Other, CreatedAt = seedDate, UpdatedAt = seedDate });
 
-        // Delivery methods available at checkout (at least two, with different costs).
         modelBuilder.Entity<DeliveryMethod>().HasData(
             new DeliveryMethod
             {
@@ -287,6 +278,18 @@ public static class AppDbContextSeed
                 CreatedAt = seedDate,
                 UpdatedAt = seedDate
             }
+        );
+
+        modelBuilder.Entity<ProductImage>().HasData(
+            new ProductImage { ProductId = 1, ImageUrl = "/img/Catan.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 2, ImageUrl = "/img/Carcassonne.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 3, ImageUrl = "/img/Ticket%20to%20Ride%20Europe.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 4, ImageUrl = "/img/Terraforming%20Mars.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 5, ImageUrl = "/img/Gloomhaven.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 6, ImageUrl = "/img/Pandemic.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 7, ImageUrl = "/img/7%20Wonders%20Duel.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 8, ImageUrl = "/img/Codenames.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 9, ImageUrl = "/img/Dixit.jpg", CreatedAt = seedDate, UpdatedAt = seedDate }
         );
     }
 }

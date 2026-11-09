@@ -1,8 +1,11 @@
+using BusinessLogic.Json;
+using BusinessLogic.Json.Model;
 using BusinessLogic.Models.Login;
 using BusinessLogic.Models.User;
 using BusinessLogic.Services.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Repository.Entity;
 using Repository.Enums.Behaviours;
 using Repository.Repositories.Abstractions;
@@ -13,16 +16,11 @@ using System.Text;
 
 namespace BusinessLogic.Services
 {
-    /// <summary>
-    /// Implements authentication logic including JWT generation, BCrypt password hashing, 
-    /// and refresh token rotation.
-    /// </summary>
     public class AuthService(IUserRepository userRepository, IConfiguration configuration) : IAuthService
     {
         private readonly IUserRepository _userRepository = userRepository;
         private readonly IConfiguration _config = configuration;
 
-        /// <inheritdoc />
         public async Task<LoginResponseModel?> Login(LoginModel model)
         {
             var user = await _userRepository.GetByNameAsync(model.Username);
@@ -33,12 +31,12 @@ namespace BusinessLogic.Services
             return await GenerateLoginResponse(user);
         }
 
-        /// <inheritdoc />
         public async Task<LoginResponseModel?> Register(UserCreateModel model)
         {
             if (await _userRepository.EmailExistsAsync(model.Email)) return null;
 
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(model.Password, workFactor: 12);
+            var now = DateTime.UtcNow;
 
             var user = new User
             {
@@ -46,6 +44,9 @@ namespace BusinessLogic.Services
                 Email = model.Email,
                 PasswordHash = hashedPassword,
                 IsAdmin = false,
+                Settings = JsonConvert.SerializeObject(new UserSettings(), AppJsonSettings.Default),
+                CreatedAt = now,
+                UpdatedAt = now
             };
 
             await _userRepository.AddAsync(user);
@@ -53,8 +54,7 @@ namespace BusinessLogic.Services
 
             return await GenerateLoginResponse(user);
         }
-        
-        /// <inheritdoc />
+
         public async Task<bool> IsLoggedIn(string token)
         {
             if (string.IsNullOrWhiteSpace(token)) return false;
@@ -84,7 +84,6 @@ namespace BusinessLogic.Services
             }
         }
 
-        /// <inheritdoc />
         public async Task<LoginResponseModel?> RefreshToken(LoginResponseModel oldResponse)
         {
             var principal = GetPrincipalFromExpiredToken(oldResponse.Token);
