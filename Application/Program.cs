@@ -10,7 +10,10 @@ using Repository.Repositories.Abstractions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true;
+});
 
 var connectionString =
     Environment.GetEnvironmentVariable("DB_CONNECTION")
