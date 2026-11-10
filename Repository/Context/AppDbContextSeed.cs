@@ -117,22 +117,19 @@ public static class AppDbContextSeed
             new Product { Id = 17, Name = "Dungeons & Dragons: Monster Manual", AgeRating = AgeRatingType.TwelvePlus, Price = 229.00m, Stock = 20, Description = "Bestiary filled with iconic fantasy creatures, dragons, and villains.", CreatedAt = seedDate, UpdatedAt = seedDate },
             new Product { Id = 18, Name = "Call of Cthulhu: Keeper Rulebook", AgeRating = AgeRatingType.SixteenPlus, Price = 249.00m, Stock = 12, Description = "Core rulebook for Lovecraftian horror investigative roleplaying.", CreatedAt = seedDate, UpdatedAt = seedDate },
             new Product { Id = 19, Name = "Magic: The Gathering - Foundations Starter Kit", AgeRating = AgeRatingType.TwelvePlus, Price = 99.00m, Stock = 35, Description = "Two ready-to-play 60-card decks designed to learn Magic: The Gathering.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 20, Name = "Pokemon TCG: Elite Trainer Box", AgeRating = AgeRatingType.SevenPlus, Price = 259.00m, Stock = 18, Description = "Collector's box with booster packs, card sleeves, energy cards, and condition markers.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 21, Name = "Yu-Gi-Oh! Legendary Decks", AgeRating = AgeRatingType.SevenPlus, Price = 165.00m, Stock = 15, Description = "Three complete collectible dueling decks featuring iconic cards.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 22, Name = "Warhammer 40,000: Ultimate Starter Set", AgeRating = AgeRatingType.TwelvePlus, Price = 749.00m, Stock = 4, Description = "Complete tabletop wargaming starter box with Space Marines, Tyranids, and terrain.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 23, Name = "Citadel Base Paint Set", AgeRating = AgeRatingType.TwelvePlus, Price = 185.00m, Stock = 25, Description = "High-pigment acrylic paints and starter brush for miniature hobbyists.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 24, Name = "Army Painter Wargamer Brush Set", AgeRating = AgeRatingType.TwelvePlus, Price = 115.00m, Stock = 30, Description = "Precision synthetic and sable brushes for basecoating, drybrushing, and fine details.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 25, Name = "Nolzur's Marvelous Unpainted Miniatures: Dragon", AgeRating = AgeRatingType.TwelvePlus, Price = 145.00m, Stock = 10, Description = "Highly detailed pre-primed plastic dragon miniature for TTRPGs.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 26, Name = "Modular Dungeon Terrain Core Set", AgeRating = AgeRatingType.TwelvePlus, Price = 320.00m, Stock = 8, Description = "Snap-together 3D dungeon walls, doors, and pillars for tabletop encounters.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 27, Name = "Dragon Shield Matte Sleeves (100ct)", AgeRating = AgeRatingType.ThreePlus, Price = 55.00m, Stock = 50, Description = "Durable polypropylene trading card sleeves with textured matte backing.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 28, Name = "Foldable Velvet Dice Tray", AgeRating = AgeRatingType.ThreePlus, Price = 65.00m, Stock = 40, Description = "Portable PU leather and velvet tray to keep dice rolls contained.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 29, Name = "Ravensburger 1000pc Fantasy Castle Puzzle", AgeRating = AgeRatingType.SevenPlus, Price = 89.00m, Stock = 22, Description = "Premium interlocking jigsaw puzzle featuring a scenic fantasy kingdom.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 30, Name = "Dobble (Spot It!)", AgeRating = AgeRatingType.ThreePlus, Price = 69.00m, Stock = 35, Description = "Fast-paced pocket-sized pattern recognition game in a travel tin.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 31, Name = "Exploding Kittens: NSFW Edition", AgeRating = AgeRatingType.EighteenPlus, Price = 109.00m, Stock = 19, Description = "Adult party card game of kitty-powered Russian Roulette.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 32, Name = "Fog of Love", AgeRating = AgeRatingType.SixteenPlus, Price = 245.00m, Stock = 7, Description = "Romantic comedy board game for two players where you create and play out a relationship.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 33, Name = "My First Orchard", AgeRating = AgeRatingType.ThreePlus, Price = 125.00m, Stock = 14, Description = "Cooperative color-matching game with chunky wooden fruit pieces for young children.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 34, Name = "Hive Pocket", AgeRating = AgeRatingType.SevenPlus, Price = 119.00m, Stock = 17, Description = "Boardless two-player abstract strategy game with bakelite tiles in a travel pouch.", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new Product { Id = 35, Name = "GamersKeep Collector's Enamel Pin", AgeRating = AgeRatingType.ThreePlus, Price = 35.00m, Stock = 60, Description = "Official D20 shield enamel pin badge for backpacks and lanyards.", CreatedAt = seedDate, UpdatedAt = seedDate }
+            new Product { Id = 20, Name = "Huse pentru cărți – Roșu", AgeRating = AgeRatingType.ThreePlus, Price = 49.00m, Stock = 50, Description = "Set de 100 de huse mate de culoare roșie, care protejează cărțile de joc de uzură și zgârieturi.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 21, Name = "Tavă de zaruri din catifea", AgeRating = AgeRatingType.ThreePlus, Price = 69.00m, Stock = 40, Description = "Tavă pliabilă căptușită cu catifea, care ține zarurile pe masă și reduce zgomotul aruncărilor.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 22, Name = "Cutie de depozitare pentru cărți", AgeRating = AgeRatingType.ThreePlus, Price = 79.00m, Stock = 30, Description = "Cutie rigidă cu capac magnetic, în care încap până la 400 de cărți protejate cu huse.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 24, Name = "Set de 7 zaruri poliedrice", AgeRating = AgeRatingType.TwelvePlus, Price = 59.00m, Stock = 60, Description = "Set complet de zaruri pentru jocuri de rol (d4, d6, d8, d10, d%, d12 și d20), cu pungă de transport.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 25, Name = "Paravan pentru Dungeon Master", AgeRating = AgeRatingType.TwelvePlus, Price = 119.00m, Stock = 20, Description = "Paravan pliabil cu trei panouri, care ascunde notițele Maestrului de Joc și are tabele de reguli pe partea dinspre Maestru.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 26, Name = "Caiete cu fișe de personaj", AgeRating = AgeRatingType.TwelvePlus, Price = 45.00m, Stock = 40, Description = "Bloc cu 30 de fișe de personaj pentru jocuri de rol fantasy, tipărite pe hârtie groasă.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 29, Name = "Set de pensule pentru miniaturi", AgeRating = AgeRatingType.TwelvePlus, Price = 95.00m, Stock = 30, Description = "Set de 5 pensule cu fire sintetice, pentru acoperire, uscat și detalii fine.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 30, Name = "Miniatură nevopsită: Dragon", AgeRating = AgeRatingType.TwelvePlus, Price = 145.00m, Stock = 12, Description = "Miniatură detaliată din plastic, pregătită pentru pictat, ideală pentru aventuri fantasy.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 33, Name = "Cană cu temă de zaruri", AgeRating = AgeRatingType.ThreePlus, Price = 55.00m, Stock = 40, Description = "Cană ceramică de 330 ml, decorată cu zaruri poliedrice.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 34, Name = "Tricou Gamer's Keep", AgeRating = AgeRatingType.ThreePlus, Price = 99.00m, Stock = 35, Description = "Tricou din bumbac, cu emblema magazinului.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 35, Name = "Poster cu o hartă fantasy", AgeRating = AgeRatingType.ThreePlus, Price = 69.00m, Stock = 30, Description = "Poster A2 cu o hartă fantasy desenată în detaliu, potrivit pentru camera de joc.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 36, Name = "Huse pentru cărți – Albastru", AgeRating = AgeRatingType.ThreePlus, Price = 49.00m, Stock = 40, Description = "Set de 100 de huse mate de culoare albastră, care protejează cărțile de joc de uzură și zgârieturi.", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new Product { Id = 37, Name = "Huse pentru cărți – Verde", AgeRating = AgeRatingType.ThreePlus, Price = 49.00m, Stock = 40, Description = "Set de 100 de huse mate de culoare verde, care protejează cărțile de joc de uzură și zgârieturi.", CreatedAt = seedDate, UpdatedAt = seedDate }
         );
 
         modelBuilder.Entity<ProductCategory>().HasData(
@@ -209,49 +206,27 @@ public static class AppDbContextSeed
             new ProductCategory { ProductId = 19, CategoryId = CategoryType.Fantasy, CreatedAt = seedDate, UpdatedAt = seedDate },
             new ProductCategory { ProductId = 19, CategoryId = CategoryType.TwoPlayers, CreatedAt = seedDate, UpdatedAt = seedDate },
 
-            new ProductCategory { ProductId = 20, CategoryId = CategoryType.TradingCardGame, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 20, CategoryId = CategoryType.Accessory, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 21, CategoryId = CategoryType.Accessory, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 22, CategoryId = CategoryType.Accessory, CreatedAt = seedDate, UpdatedAt = seedDate },
 
-            new ProductCategory { ProductId = 21, CategoryId = CategoryType.TradingCardGame, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 22, CategoryId = CategoryType.Wargame, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 22, CategoryId = CategoryType.Miniatures, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 22, CategoryId = CategoryType.SciFi, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 23, CategoryId = CategoryType.PaintingSupplies, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 24, CategoryId = CategoryType.PaintingSupplies, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 25, CategoryId = CategoryType.Miniatures, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 25, CategoryId = CategoryType.Fantasy, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 26, CategoryId = CategoryType.Terrain, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 24, CategoryId = CategoryType.TTRPG, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 24, CategoryId = CategoryType.Accessory, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 25, CategoryId = CategoryType.TTRPG, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 25, CategoryId = CategoryType.Accessory, CreatedAt = seedDate, UpdatedAt = seedDate },
             new ProductCategory { ProductId = 26, CategoryId = CategoryType.TTRPG, CreatedAt = seedDate, UpdatedAt = seedDate },
 
-            new ProductCategory { ProductId = 27, CategoryId = CategoryType.Accessory, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 29, CategoryId = CategoryType.PaintingSupplies, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 30, CategoryId = CategoryType.Miniatures, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 30, CategoryId = CategoryType.Fantasy, CreatedAt = seedDate, UpdatedAt = seedDate },
 
-            new ProductCategory { ProductId = 28, CategoryId = CategoryType.Accessory, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 33, CategoryId = CategoryType.Other, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 34, CategoryId = CategoryType.Other, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 35, CategoryId = CategoryType.Other, CreatedAt = seedDate, UpdatedAt = seedDate },
 
-            new ProductCategory { ProductId = 29, CategoryId = CategoryType.Puzzle, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 29, CategoryId = CategoryType.Fantasy, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 30, CategoryId = CategoryType.Party, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 30, CategoryId = CategoryType.TravelSized, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 30, CategoryId = CategoryType.Children, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 31, CategoryId = CategoryType.Party, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 32, CategoryId = CategoryType.BoardGame, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 32, CategoryId = CategoryType.Romance, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 32, CategoryId = CategoryType.TwoPlayers, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 33, CategoryId = CategoryType.Children, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 33, CategoryId = CategoryType.Cooperative, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 34, CategoryId = CategoryType.TwoPlayers, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 34, CategoryId = CategoryType.TravelSized, CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductCategory { ProductId = 34, CategoryId = CategoryType.Strategy, CreatedAt = seedDate, UpdatedAt = seedDate },
-
-            new ProductCategory { ProductId = 35, CategoryId = CategoryType.Other, CreatedAt = seedDate, UpdatedAt = seedDate });
+            new ProductCategory { ProductId = 36, CategoryId = CategoryType.Accessory, CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductCategory { ProductId = 37, CategoryId = CategoryType.Accessory, CreatedAt = seedDate, UpdatedAt = seedDate }
+        );
 
         modelBuilder.Entity<DeliveryMethod>().HasData(
             new DeliveryMethod
@@ -289,7 +264,30 @@ public static class AppDbContextSeed
             new ProductImage { ProductId = 6, ImageUrl = "/img/Pandemic.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
             new ProductImage { ProductId = 7, ImageUrl = "/img/7%20Wonders%20Duel.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
             new ProductImage { ProductId = 8, ImageUrl = "/img/Codenames.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
-            new ProductImage { ProductId = 9, ImageUrl = "/img/Dixit.jpg", CreatedAt = seedDate, UpdatedAt = seedDate }
+            new ProductImage { ProductId = 9, ImageUrl = "/img/Dixit.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 10, ImageUrl = "/img/Azul.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 11, ImageUrl = "/img/Wingspan.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 12, ImageUrl = "/img/Scythe.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 13, ImageUrl = "/img/Root.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 14, ImageUrl = "/img/Arkham%20Horror%20The%20Card%20Game.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 15, ImageUrl = "/img/Sherlock%20Holmes%20Consulting%20Detective.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 16, ImageUrl = "/img/Dungeons%20%26%20Dragons%20Player%27s%20Handbook.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 17, ImageUrl = "/img/Dungeons%20%26%20Dragons%20Monster%20Manual.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 18, ImageUrl = "/img/Call%20of%20Cthulhu%20Keeper%20Rulebook.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 19, ImageUrl = "/img/Magic%20The%20Gathering%20-%20Foundations%20Starter%20Kit.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 20, ImageUrl = "/img/Carti Rosii.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 21, ImageUrl = "/img/Tavă de zaruri din catifea.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 22, ImageUrl = "/img/Cutie de depozitare pentru cărți.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 24, ImageUrl = "/img/Set de 7 zaruri poliedrice.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 25, ImageUrl = "/img/Paravan pentru Dungeon Master.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 26, ImageUrl = "/img/Caiete cu fișe de personaj.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 29, ImageUrl = "/img/Set de pensule pentru miniaturi.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 30, ImageUrl = "/img/Miniatură nevopsită Dragon.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 33, ImageUrl = "/img/Cană cu temă de zaruri.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 34, ImageUrl = "/img/Tricou Gamer’s Keep.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 35, ImageUrl = "/img/Poster cu o hartă fantasy.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 36, ImageUrl = "/img/Carti Albastre.jpg", CreatedAt = seedDate, UpdatedAt = seedDate },
+            new ProductImage { ProductId = 37, ImageUrl = "/img/Carti Verzi.jpg", CreatedAt = seedDate, UpdatedAt = seedDate }
         );
     }
 }
