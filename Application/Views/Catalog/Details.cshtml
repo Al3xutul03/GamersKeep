@@ -1,44 +1,138 @@
-﻿@model BusinessLogic.Models.Product.ProductReadModel
+﻿@using Repository.Enums.Types
+@model Application.Models.ProductDetailsViewModel
 
-@{
-    ViewData["Title"] = Model.Name;
+@functions {
+    static string Initials(string name) =>
+        string.Concat(
+            name.Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Where(w => char.IsLetterOrDigit(w[0]))
+                .Take(2)
+                .Select(w => char.ToUpperInvariant(w[0])));
+
+    static string AgeLabel(AgeRatingType age) => age switch
+    {
+        AgeRatingType.ThreePlus => "3+",
+        AgeRatingType.SevenPlus => "7+",
+        AgeRatingType.TwelvePlus => "12+",
+        AgeRatingType.SixteenPlus => "16+",
+        AgeRatingType.EighteenPlus => "18+",
+        _ => age.ToString()
+    };
 }
 
-<div class="product-detail">
-    <a asp-controller="Catalog" asp-action="Index" class="btn btn--ghost btn--sm" style="margin-bottom: 1rem; display: inline-block;">&larr; Înapoi la catalog</a>
+@{
+    var product = Model.Product;
+    ViewData["Title"] = product.Name;
+    var image = product.Images?.FirstOrDefault();
+    var inStock = product.Stock > 0;
+    var maxQty = Math.Max(1, (int)product.Stock);
+    var currentLabel = Model.Variants.FirstOrDefault(v => v.IsCurrent)?.Label ?? string.Empty;
+}
 
-    <div class="product-detail__layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-        <div class="product-detail__image-container">
-            @if (Model.Images != null && Model.Images.Any())
+<a class="pdp__back" asp-controller="Catalog" asp-action="Index">&larr; Înapoi la catalog</a>
+
+<div class="pdp">
+    <div class="pdp__gallery">
+        @if (!string.IsNullOrEmpty(image))
+        {
+            <img class="pdp__img" src="@image" alt="@product.Name" />
+        }
+        else
+        {
+            <div class="cover" data-tone="@(product.Id % 6)">
+                <span class="cover__mark">@Initials(product.Name)</span>
+            </div>
+        }
+    </div>
+
+    <div class="pdp__info">
+        <h1 class="pdp__title">@product.Name</h1>
+
+        <div class="pdp__meta">
+            <span class="badge">Vârstă @AgeLabel(product.AgeRating)</span>
+            @if (product.Stock == 0)
             {
-                <img src="@Model.Images.First()" alt="@Model.Name" style="width: 100%; border-radius: 8px;" />
+                <span class="badge badge--danger">Stoc epuizat</span>
+            }
+            else if (product.Stock <= 5)
+            {
+                <span class="badge badge--warning">Stoc redus: @product.Stock buc.</span>
             }
             else
             {
-                <div class="product-card__placeholder" style="height: 300px; display: flex; align-items: center; justify-content: center; background: var(--color-surface); border-radius: 8px;">
-                    <span>Gamer's Keep</span>
-                </div>
+                <span class="badge badge--success">În stoc</span>
             }
         </div>
 
-        <div class="product-detail__info">
-            <h1 class="product-detail__title">@Model.Name</h1>
-            <p class="product-detail__price" style="font-size: 1.5rem; font-weight: bold; margin: 1rem 0;">@Model.Price.ToString("F2") RON</p>
+        <p class="pdp__price">@product.Price.ToString("F2") RON</p>
+        <p class="pdp__desc">@product.Description</p>
 
-            <div style="margin-bottom: 1rem;">
-                <span class="badge">Vârstă: @Model.AgeRating</span>
+        @if (Model.Variants.Count > 1)
+        {
+            <div class="variants">
+                <div class="variants__label">Alege culoarea: <strong>@currentLabel</strong></div>
+                <div class="variants__list">
+                    @foreach (var v in Model.Variants)
+                    {
+                        var tileClass = "variant-tile" + (v.InStock ? "" : " variant-tile--out");
+                        <a class="@tileClass" asp-controller="Catalog" asp-action="Details" asp-route-id="@v.Id"
+                           aria-current="@(v.IsCurrent ? "true" : null)" title="@v.Label">
+                            <span class="variant-tile__media">
+                                @if (!string.IsNullOrEmpty(v.ImageUrl))
+                                {
+                                    <img src="@v.ImageUrl" alt="@v.Label" loading="lazy" />
+                                }
+                                else
+                                {
+                                    <span class="variant-tile__color" style="@(string.IsNullOrEmpty(v.Color) ? null : $"--swatch:{v.Color}")"></span>
+                                }
+                            </span>
+                            <span class="variant-tile__label">@v.Label</span>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+
+        <form class="pdp__buy" asp-controller="Cart" asp-action="AddToCart" method="post">
+            <input type="hidden" name="productId" value="@product.Id" />
+
+            <div class="qty">
+                <button type="button" data-qty-minus aria-label="Scade cantitatea">−</button>
+                <input type="number" name="quantity" value="1" min="1" max="@maxQty" aria-label="Cantitate" />
+                <button type="button" data-qty-plus aria-label="Crește cantitatea">+</button>
             </div>
 
-            <h3>Descriere</h3>
-            <p class="product-detail__description">@Model.Description</p>
-
-            <div class="product-detail__actions" style="margin-top: 2rem;">
-                <form asp-controller="Cart" asp-action="AddToCart" method="post">
-                    <input type="hidden" name="productId" value="@Model.Id" />
-                    <input type="hidden" name="quantity" value="1" />
-                    <button type="submit" class="btn btn--primary">Adaugă în coș</button>
-                </form>
-            </div>
-        </div>
+            <button type="submit" class="btn btn--primary btn--lg" disabled="@(!inStock)">Adaugă în coș</button>
+        </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        (function() {
+            var input = document.querySelector('.qty input');
+            var minus = document.querySelector('[data-qty-minus]');
+            var plus = document.querySelector('[data-qty-plus]');
+            if (!input || !minus || !plus) return;
+
+            function clamp(value) {
+                var min = parseInt(input.min, 10) || 1;
+                var max = parseInt(input.max, 10) || min;
+                return Math.min(Math.max(value, min), max);
+            }
+
+            minus.addEventListener('click', function() {
+                input.value = clamp((parseInt(input.value, 10) || 1) - 1);
+            });
+
+            plus.addEventListener('click', function() {
+                input.value = clamp((parseInt(input.value, 10) || 1) + 1);
+            });
+
+            input.addEventListener('change', function() {
+                input.value = clamp(parseInt(input.value, 10) || 1);
+            });
+        })();
+    </script>
+}

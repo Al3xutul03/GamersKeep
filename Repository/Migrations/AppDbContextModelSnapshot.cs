@@ -805,45 +805,34 @@ namespace Repository.Migrations
                         new
                         {
                             Id = 20ul,
-                            AgeRating = "seven-plus",
+                            AgeRating = "three-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Collector's box with booster packs, card sleeves, energy cards, and condition markers.",
-                            Name = "Pokemon TCG: Elite Trainer Box",
-                            Price = 259.00m,
-                            Stock = 18u,
+                            Description = "Set de 100 de huse mate de culoare roșie, care protejează cărțile de joc de uzură și zgârieturi.",
+                            Name = "Huse pentru cărți – Roșu",
+                            Price = 49.00m,
+                            Stock = 50u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 21ul,
-                            AgeRating = "seven-plus",
+                            AgeRating = "three-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Three complete collectible dueling decks featuring iconic cards.",
-                            Name = "Yu-Gi-Oh! Legendary Decks",
-                            Price = 165.00m,
-                            Stock = 15u,
+                            Description = "Tavă pliabilă căptușită cu catifea, care ține zarurile pe masă și reduce zgomotul aruncărilor.",
+                            Name = "Tavă de zaruri din catifea",
+                            Price = 69.00m,
+                            Stock = 40u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 22ul,
-                            AgeRating = "twelve-plus",
+                            AgeRating = "three-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Complete tabletop wargaming starter box with Space Marines, Tyranids, and terrain.",
-                            Name = "Warhammer 40,000: Ultimate Starter Set",
-                            Price = 749.00m,
-                            Stock = 4u,
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = 23ul,
-                            AgeRating = "twelve-plus",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "High-pigment acrylic paints and starter brush for miniature hobbyists.",
-                            Name = "Citadel Base Paint Set",
-                            Price = 185.00m,
-                            Stock = 25u,
+                            Description = "Cutie rigidă cu capac magnetic, în care încap până la 400 de cărți protejate cu huse.",
+                            Name = "Cutie de depozitare pentru cărți",
+                            Price = 79.00m,
+                            Stock = 30u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -851,10 +840,10 @@ namespace Repository.Migrations
                             Id = 24ul,
                             AgeRating = "twelve-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Precision synthetic and sable brushes for basecoating, drybrushing, and fine details.",
-                            Name = "Army Painter Wargamer Brush Set",
-                            Price = 115.00m,
-                            Stock = 30u,
+                            Description = "Set complet de zaruri pentru jocuri de rol (d4, d6, d8, d10, d%, d12 și d20), cu pungă de transport.",
+                            Name = "Set de 7 zaruri poliedrice",
+                            Price = 59.00m,
+                            Stock = 60u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -862,10 +851,10 @@ namespace Repository.Migrations
                             Id = 25ul,
                             AgeRating = "twelve-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Highly detailed pre-primed plastic dragon miniature for TTRPGs.",
-                            Name = "Nolzur's Marvelous Unpainted Miniatures: Dragon",
-                            Price = 145.00m,
-                            Stock = 10u,
+                            Description = "Paravan pliabil cu trei panouri, care ascunde notițele Maestrului de Joc și are tabele de reguli pe partea dinspre Maestru.",
+                            Name = "Paravan pentru Dungeon Master",
+                            Price = 119.00m,
+                            Stock = 20u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -873,76 +862,32 @@ namespace Repository.Migrations
                             Id = 26ul,
                             AgeRating = "twelve-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Snap-together 3D dungeon walls, doors, and pillars for tabletop encounters.",
-                            Name = "Modular Dungeon Terrain Core Set",
-                            Price = 320.00m,
-                            Stock = 8u,
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = 27ul,
-                            AgeRating = "three-plus",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Durable polypropylene trading card sleeves with textured matte backing.",
-                            Name = "Dragon Shield Matte Sleeves (100ct)",
-                            Price = 55.00m,
-                            Stock = 50u,
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = 28ul,
-                            AgeRating = "three-plus",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Portable PU leather and velvet tray to keep dice rolls contained.",
-                            Name = "Foldable Velvet Dice Tray",
-                            Price = 65.00m,
+                            Description = "Bloc cu 30 de fișe de personaj pentru jocuri de rol fantasy, tipărite pe hârtie groasă.",
+                            Name = "Caiete cu fișe de personaj",
+                            Price = 45.00m,
                             Stock = 40u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 29ul,
-                            AgeRating = "seven-plus",
+                            AgeRating = "twelve-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Premium interlocking jigsaw puzzle featuring a scenic fantasy kingdom.",
-                            Name = "Ravensburger 1000pc Fantasy Castle Puzzle",
-                            Price = 89.00m,
-                            Stock = 22u,
+                            Description = "Set de 5 pensule cu fire sintetice, pentru acoperire, uscat și detalii fine.",
+                            Name = "Set de pensule pentru miniaturi",
+                            Price = 95.00m,
+                            Stock = 30u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 30ul,
-                            AgeRating = "three-plus",
+                            AgeRating = "twelve-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Fast-paced pocket-sized pattern recognition game in a travel tin.",
-                            Name = "Dobble (Spot It!)",
-                            Price = 69.00m,
-                            Stock = 35u,
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = 31ul,
-                            AgeRating = "eighteen-plus",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Adult party card game of kitty-powered Russian Roulette.",
-                            Name = "Exploding Kittens: NSFW Edition",
-                            Price = 109.00m,
-                            Stock = 19u,
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            Id = 32ul,
-                            AgeRating = "sixteen-plus",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Romantic comedy board game for two players where you create and play out a relationship.",
-                            Name = "Fog of Love",
-                            Price = 245.00m,
-                            Stock = 7u,
+                            Description = "Miniatură detaliată din plastic, pregătită pentru pictat, ideală pentru aventuri fantasy.",
+                            Name = "Miniatură nevopsită: Dragon",
+                            Price = 145.00m,
+                            Stock = 12u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -950,21 +895,21 @@ namespace Repository.Migrations
                             Id = 33ul,
                             AgeRating = "three-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Cooperative color-matching game with chunky wooden fruit pieces for young children.",
-                            Name = "My First Orchard",
-                            Price = 125.00m,
-                            Stock = 14u,
+                            Description = "Cană ceramică de 330 ml, decorată cu zaruri poliedrice.",
+                            Name = "Cană cu temă de zaruri",
+                            Price = 55.00m,
+                            Stock = 40u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             Id = 34ul,
-                            AgeRating = "seven-plus",
+                            AgeRating = "three-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Boardless two-player abstract strategy game with bakelite tiles in a travel pouch.",
-                            Name = "Hive Pocket",
-                            Price = 119.00m,
-                            Stock = 17u,
+                            Description = "Tricou din bumbac, cu emblema magazinului.",
+                            Name = "Tricou Gamer's Keep",
+                            Price = 99.00m,
+                            Stock = 35u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -972,10 +917,32 @@ namespace Repository.Migrations
                             Id = 35ul,
                             AgeRating = "three-plus",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Description = "Official D20 shield enamel pin badge for backpacks and lanyards.",
-                            Name = "GamersKeep Collector's Enamel Pin",
-                            Price = 35.00m,
-                            Stock = 60u,
+                            Description = "Poster A2 cu o hartă fantasy desenată în detaliu, potrivit pentru camera de joc.",
+                            Name = "Poster cu o hartă fantasy",
+                            Price = 69.00m,
+                            Stock = 30u,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 36ul,
+                            AgeRating = "three-plus",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Set de 100 de huse mate de culoare albastră, care protejează cărțile de joc de uzură și zgârieturi.",
+                            Name = "Huse pentru cărți – Albastru",
+                            Price = 49.00m,
+                            Stock = 40u,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = 37ul,
+                            AgeRating = "three-plus",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "Set de 100 de huse mate de culoare verde, care protejează cărțile de joc de uzură și zgârieturi.",
+                            Name = "Huse pentru cărți – Verde",
+                            Price = 49.00m,
+                            Stock = 40u,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
@@ -1386,70 +1353,49 @@ namespace Repository.Migrations
                         new
                         {
                             ProductId = 20ul,
-                            CategoryId = "trading-card-game",
+                            CategoryId = "accessory",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             ProductId = 21ul,
-                            CategoryId = "trading-card-game",
+                            CategoryId = "accessory",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             ProductId = 22ul,
-                            CategoryId = "wargame",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 22ul,
-                            CategoryId = "miniatures",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 22ul,
-                            CategoryId = "sci-fi",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 23ul,
-                            CategoryId = "painting-supplies",
+                            CategoryId = "accessory",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             ProductId = 24ul,
-                            CategoryId = "painting-supplies",
+                            CategoryId = "t-t-r-p-g",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ProductId = 24ul,
+                            CategoryId = "accessory",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             ProductId = 25ul,
-                            CategoryId = "miniatures",
+                            CategoryId = "t-t-r-p-g",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             ProductId = 25ul,
-                            CategoryId = "fantasy",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 26ul,
-                            CategoryId = "terrain",
+                            CategoryId = "accessory",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
@@ -1462,113 +1408,36 @@ namespace Repository.Migrations
                         },
                         new
                         {
-                            ProductId = 27ul,
-                            CategoryId = "accessory",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 28ul,
-                            CategoryId = "accessory",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
                             ProductId = 29ul,
-                            CategoryId = "puzzle",
+                            CategoryId = "painting-supplies",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
-                            ProductId = 29ul,
+                            ProductId = 30ul,
+                            CategoryId = "miniatures",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ProductId = 30ul,
                             CategoryId = "fantasy",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
-                            ProductId = 30ul,
-                            CategoryId = "party",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 30ul,
-                            CategoryId = "travel-sized",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 30ul,
-                            CategoryId = "children",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 31ul,
-                            CategoryId = "party",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 32ul,
-                            CategoryId = "board-game",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 32ul,
-                            CategoryId = "romance",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 32ul,
-                            CategoryId = "two-players",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
                             ProductId = 33ul,
-                            CategoryId = "children",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 33ul,
-                            CategoryId = "cooperative",
+                            CategoryId = "other",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             ProductId = 34ul,
-                            CategoryId = "two-players",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 34ul,
-                            CategoryId = "travel-sized",
-                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
-                        },
-                        new
-                        {
-                            ProductId = 34ul,
-                            CategoryId = "strategy",
+                            CategoryId = "other",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
@@ -1576,6 +1445,20 @@ namespace Repository.Migrations
                         {
                             ProductId = 35ul,
                             CategoryId = "other",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ProductId = 36ul,
+                            CategoryId = "accessory",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ProductId = 37ul,
+                            CategoryId = "accessory",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
@@ -1667,6 +1550,167 @@ namespace Repository.Migrations
                             ImageUrl = "/img/Dixit.jpg",
                             CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             ProductId = 9ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Azul.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 10ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Wingspan.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 11ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Scythe.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 12ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Root.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 13ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Arkham%20Horror%20The%20Card%20Game.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 14ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Sherlock%20Holmes%20Consulting%20Detective.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 15ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Dungeons%20%26%20Dragons%20Player%27s%20Handbook.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 16ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Dungeons%20%26%20Dragons%20Monster%20Manual.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 17ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Call%20of%20Cthulhu%20Keeper%20Rulebook.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 18ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Magic%20The%20Gathering%20-%20Foundations%20Starter%20Kit.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 19ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Carti Rosii.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 20ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Tavă de zaruri din catifea.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 21ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Cutie de depozitare pentru cărți.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 22ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Set de 7 zaruri poliedrice.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 24ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Paravan pentru Dungeon Master.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 25ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Caiete cu fișe de personaj.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 26ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Set de pensule pentru miniaturi.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 29ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Miniatură nevopsită Dragon.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 30ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Cană cu temă de zaruri.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 33ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Tricou Gamer’s Keep.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 34ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Poster cu o hartă fantasy.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 35ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Carti Albastre.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 36ul,
+                            UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            ImageUrl = "/img/Carti Verzi.jpg",
+                            CreatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            ProductId = 37ul,
                             UpdatedAt = new DateTime(2026, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });

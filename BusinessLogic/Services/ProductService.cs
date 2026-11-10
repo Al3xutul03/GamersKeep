@@ -17,6 +17,15 @@ public class ProductService(IMapper mapper, IProductRepository productRepository
 {
     private IProductRepository ProductRepository => (IProductRepository)_repository;
 
+    public override async Task<ProductReadModel?> GetByIdAsync(ulong id)
+    {
+        var product = await ProductRepository.GetByIdAsync(id, IncludeBehaviour.GivenIncludes, q =>
+            q.Include(p => p.Images)
+             .Include(p => p.Categories));
+
+        return product != null ? _mapper.Map<ProductReadModel>(product) : null;
+    }
+
     public async Task<ulong> GetNoPages(ulong page_size, SearchFilterModel filter)
     {
         var count = await ProductRepository.GetNoPagesAsync(page_size, q =>

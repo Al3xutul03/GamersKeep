@@ -199,9 +199,9 @@ a {
 
 .container {
     width: 100%;
-    max-width: 1180px;
+    max-width: 1440px;
     margin-inline: auto;
-    padding-inline: var(--space-5);
+    padding-inline: clamp(var(--space-4), 3vw, var(--space-6));
 }
 
 .page {
@@ -1349,6 +1349,85 @@ select.field__input {
             margin: 0;
         }
 
+.variants {
+    margin-top: var(--space-5);
+}
+
+.variants__label {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+}
+
+    .variants__label strong {
+        color: var(--ink);
+    }
+
+.variants__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+}
+
+.variant-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2);
+    width: 84px;
+    padding: var(--space-2);
+    background: var(--surface);
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-md);
+    color: var(--muted);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color .15s, color .15s, transform .15s, box-shadow .15s;
+}
+
+    .variant-tile:hover {
+        color: var(--ink);
+        border-color: var(--muted);
+        transform: translateY(-2px);
+    }
+
+    .variant-tile[aria-current="true"] {
+        color: var(--ink);
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
+    }
+
+.variant-tile__media {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: var(--bg-soft);
+}
+
+    .variant-tile__media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.variant-tile__color {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--swatch, var(--line));
+}
+
+.variant-tile--out {
+    opacity: .55;
+}
+
+    .variant-tile--out .variant-tile__label {
+        text-decoration: line-through;
+    }
+
 .cart-layout, .checkout-layout {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 380px;
@@ -1728,7 +1807,16 @@ select.field__input {
 
     .product-card:hover,
     .btn--primary:hover,
-    .chip:hover {
+    .chip:hover,
+    .variant-tile:hover {
         transform: none;
     }
+    
+}
+.auth__panel.auth__panel--image {
+    padding: 0;
+    background-color: var(--panel);
+    background-image: var(--auth-image);
+    background-size: cover;
+    background-position: center;
 }
