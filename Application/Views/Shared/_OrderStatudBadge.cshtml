@@ -1,0 +1,13 @@
+﻿@model Repository.Enums.Types.OrderStatusType
+
+@{
+    var (label, css) = Model.ToString() switch
+    {
+        "Paid" => ("Plătită", "badge badge--success"),
+        "Shipped" => ("Expediată", "badge badge--success"),
+        "Delivered" => ("Livrată", "badge badge--success"),
+        "Cancelled" => ("Anulată", "badge badge--danger"),
+        _ => ("Neplătită", "badge badge--warning")
+    };
+}
+<span class="@css">@label</span>

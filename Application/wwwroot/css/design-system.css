@@ -1820,3 +1820,206 @@ select.field__input {
     background-size: cover;
     background-position: center;
 }
+.orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.order-card {
+    padding: var(--space-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: border-color .15s, box-shadow .15s;
+}
+
+    .order-card:hover {
+        border-color: var(--muted);
+        box-shadow: var(--shadow-md);
+    }
+
+.order-card__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.order-card__number {
+    font: 700 var(--text-lg)/1.2 var(--font-display);
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.order-card__date {
+    margin-top: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--muted);
+}
+
+.order-card__items {
+    margin: 0 0 var(--space-4);
+    padding: var(--space-4) 0;
+    list-style: none;
+    border-block: 1px solid var(--line);
+}
+
+    .order-card__items li {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-4);
+        padding: var(--space-1) 0;
+        color: var(--muted);
+    }
+
+.order-card__more {
+    font-size: var(--text-sm);
+}
+
+.order-card__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+}
+
+.order-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .order-table th,
+    .order-table td {
+        padding: var(--space-3) var(--space-2);
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .order-table th {
+        font-size: var(--text-sm);
+        font-weight: 600;
+        color: var(--muted);
+    }
+
+    .order-table .num {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+.timeline {
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+    .timeline li {
+        display: flex;
+        justify-content: space-between;
+        gap: var(--space-4);
+        padding: var(--space-2) 0;
+        font-size: var(--text-sm);
+        color: var(--muted);
+    }
+
+.address-block {
+    margin: 0 0 var(--space-4);
+    font-style: normal;
+    line-height: 1.6;
+    color: var(--muted);
+}
+.admin-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-6);
+    border-bottom: 1px solid var(--line);
+}
+
+.admin-tabs__link {
+    padding: var(--space-3) var(--space-4);
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+    .admin-tabs__link:hover {
+        color: var(--ink);
+    }
+
+    .admin-tabs__link[aria-current="page"] {
+        color: var(--ink);
+        border-bottom-color: var(--ink);
+    }
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.stat-card__label {
+    font-size: var(--text-sm);
+    color: var(--muted);
+}
+
+.stat-card__value {
+    font: 700 var(--text-xl)/1.1 var(--font-display);
+    color: var(--ink);
+}
+
+.admin-section {
+    overflow-x: auto;
+}
+
+.admin-section__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+}
+
+.chip-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+}
+
+    .chip-row .chip {
+        text-decoration: none;
+    }
+
+        .chip-row .chip[aria-current="true"] {
+            background: var(--ink);
+            color: var(--surface);
+            border-color: var(--ink);
+        }
+
+.order-table .btn + .btn {
+    margin-left: var(--space-2);
+}

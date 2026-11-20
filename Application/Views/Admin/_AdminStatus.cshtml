@@ -1,0 +1,13 @@
+﻿@model string
+
+@{
+    var (label, css) = Model switch
+    {
+        "Paid" => ("Plătită", "badge badge--success"),
+        "Shipped" => ("Expediată", "badge badge--success"),
+        "Delivered" => ("Livrată", "badge badge--success"),
+        "Cancelled" => ("Anulată", "badge badge--danger"),
+        _ => ("Neplătită", "badge badge--warning")
+    };
+}
+<span class="@css">@label</span>

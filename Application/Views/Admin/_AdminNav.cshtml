@@ -1,0 +1,9 @@
+﻿@{
+    var path = Context.Request.Path.Value ?? "/";
+}
+<nav class="admin-tabs" aria-label="Admin">
+    <a class="admin-tabs__link" href="/admin" aria-current="@(path.TrimEnd('/').Equals("/admin", StringComparison.OrdinalIgnoreCase) ? "page" : null)">Dashboard</a>
+    <a class="admin-tabs__link" href="/admin/orders" aria-current="@(path.StartsWith("/admin/orders", StringComparison.OrdinalIgnoreCase) ? "page" : null)">Comenzi</a>
+    <a class="admin-tabs__link" href="/admin/products" aria-current="@(path.StartsWith("/admin/products", StringComparison.OrdinalIgnoreCase) ? "page" : null)">Produse</a>
+    <a class="admin-tabs__link" href="/admin/categories" aria-current="@(path.StartsWith("/admin/categories", StringComparison.OrdinalIgnoreCase) ? "page" : null)">Categorii</a>
+</nav>
