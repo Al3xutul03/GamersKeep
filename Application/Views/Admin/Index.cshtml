@@ -1,0 +1,61 @@
+﻿@model Application.Models.Admin.AdminDashboardViewModel
+
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<div class="page-head">
+    <h1 class="page-head__title">Panou de administrare</h1>
+    <p class="page-head__sub">Privire de ansamblu asupra magazinului</p>
+</div>
+
+<partial name="_AdminNav" />
+
+<div class="stat-grid">
+    <div class="stat-card">
+        <span class="stat-card__label">Comenzi azi</span>
+        <strong class="stat-card__value">@Model.OrdersToday</strong>
+    </div>
+    <div class="stat-card">
+        <span class="stat-card__label">Venit (7 zile)</span>
+        <strong class="stat-card__value">@Model.Revenue.ToString("F2") RON</strong>
+    </div>
+    <div class="stat-card">
+        <span class="stat-card__label">De expediat</span>
+        <strong class="stat-card__value">@Model.AwaitingShipment</strong>
+    </div>
+    <div class="stat-card">
+        <span class="stat-card__label">Stoc scăzut</span>
+        <strong class="stat-card__value">@Model.LowStock</strong>
+    </div>
+</div>
+
+<section class="card admin-section">
+    <div class="admin-section__head">
+        <h2 class="cart-summary__title">Comenzi recente</h2>
+        <a class="btn btn--ghost btn--sm" href="/admin/orders">Vezi toate</a>
+    </div>
+    <table class="order-table">
+        <thead>
+            <tr>
+                <th>Comandă</th>
+                <th>Client</th>
+                <th>Data</th>
+                <th class="num">Total</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var o in Model.Recent)
+            {
+                <tr>
+                    <td><strong>@o.Number</strong></td>
+                    <td>@o.Customer</td>
+                    <td>@o.Date.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
+                    <td class="num">@o.Total.ToString("F2") RON</td>
+                    <td><partial name="_AdminStatus" model="o.Status" /></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>

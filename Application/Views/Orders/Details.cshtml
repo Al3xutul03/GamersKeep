@@ -1,0 +1,88 @@
+﻿@model BusinessLogic.Models.Order.OrderDetailDto
+
+@{
+    ViewData["Title"] = "Comanda " + Model.OrderNumber;
+    var isUnpaid = Model.Status.ToString() == "Unpaid";
+}
+
+<a class="pdp__back" asp-controller="Orders" asp-action="Index">&larr; Înapoi la comenzi</a>
+
+<div class="page-head order-head">
+    <div>
+        <h1 class="page-head__title">Comanda @Model.OrderNumber</h1>
+        <p class="page-head__sub">Plasată pe @Model.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</p>
+    </div>
+    <partial name="_OrderStatusBadge" model="Model.Status" />
+</div>
+
+@if (TempData["OrderMessage"] is string message)
+{
+    <div class="alert alert--success" role="status">@message</div>
+}
+
+@if (TempData["OrderError"] is string error)
+{
+    <div class="alert alert--error" role="alert">@error</div>
+}
+
+<div class="cart-layout">
+    <section class="card">
+        <h2 class="cart-summary__title">Produse</h2>
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>Produs</th>
+                    <th class="num">Preț</th>
+                    <th class="num">Cant.</th>
+                    <th class="num">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td class="num">@item.UnitPrice.ToString("F2") RON</td>
+                        <td class="num">@item.Quantity</td>
+                        <td class="num"><strong>@item.TotalPrice.ToString("F2") RON</strong></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+
+    <aside class="order-summary">
+        <h2 class="order-summary__title">Rezumat</h2>
+
+        <div class="summary-row"><span>Produse</span><strong>@Model.Subtotal.ToString("F2") RON</strong></div>
+        <div class="summary-row"><span>Livrare (@Model.DeliveryMethodName)</span><strong>@Model.DeliveryCost.ToString("F2") RON</strong></div>
+        <div class="summary-row summary-row--total"><span>Total</span><strong>@Model.Total.ToString("F2") RON</strong></div>
+
+        <h3 style="margin-top: 1.5rem; font-size: 1rem;">Adresă de livrare</h3>
+        <address class="address-block">
+            @Model.ShippingFullName<br />
+            @Model.ShippingPhone<br />
+            @Model.ShippingStreet<br />
+            @Model.ShippingCity, @Model.ShippingCounty @Model.ShippingPostalCode
+        </address>
+
+        <ul class="timeline">
+            <li><span>Plasată</span><span>@Model.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</span></li>
+            @if (Model.PaidAt.HasValue)
+            {
+                <li><span>Plătită</span><span>@Model.PaidAt.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</span></li>
+            }
+            @if (Model.CancelledAt.HasValue)
+            {
+                <li><span>Anulată</span><span>@Model.CancelledAt.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</span></li>
+            }
+        </ul>
+
+        @if (isUnpaid)
+        {
+            <form asp-controller="Orders" asp-action="Cancel" asp-route-orderNumber="@Model.OrderNumber" method="post" style="margin-top: 1.5rem;">
+                <button type="submit" class="btn btn--danger btn--block">Anulează comanda</button>
+            </form>
+        }
+    </aside>
+</div>

@@ -1,0 +1,74 @@
+﻿@model Application.Models.Admin.AdminOrdersViewModel
+
+@{
+    ViewData["Title"] = "Comenzi · Admin";
+    var filters = new[]
+    {
+        ("", "Toate"), ("Unpaid", "Neplătite"), ("Paid", "Plătite"),
+        ("Shipped", "Expediate"), ("Delivered", "Livrate"), ("Cancelled", "Anulate")
+    };
+    var active = Model.ActiveStatus ?? "";
+}
+
+<div class="page-head">
+    <h1 class="page-head__title">Comenzi</h1>
+    <p class="page-head__sub">@Model.Orders.Count rezultate</p>
+</div>
+
+<partial name="_AdminNav" />
+
+<div class="chip-row" role="group" aria-label="Filtrează după status">
+    @foreach (var (value, label) in filters)
+    {
+        <a class="chip" href="/admin/orders@(value == "" ? "" : "?status=" + value)"
+           aria-current="@(active.Equals(value, StringComparison.OrdinalIgnoreCase) ? "true" : null)">@label</a>
+    }
+</div>
+
+<section class="card admin-section">
+    @if (Model.Orders.Count == 0)
+    {
+        <p class="hero__text">Nicio comandă cu acest status.</p>
+    }
+    else
+    {
+        <table class="order-table">
+            <thead>
+                <tr>
+                    <th>Comandă</th>
+                    <th>Client</th>
+                    <th>Data</th>
+                    <th class="num">Total</th>
+                    <th>Status</th>
+                    <th class="num">Acțiuni</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model.Orders)
+                {
+                    <tr>
+                        <td><strong>@o.Number</strong></td>
+                        <td>@o.Customer</td>
+                        <td>@o.Date.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
+                        <td class="num">@o.Total.ToString("F2") RON</td>
+                        <td><partial name="_AdminStatus" model="o.Status" /></td>
+                        <td class="num">
+                            @if (o.Status == "Paid")
+                            {
+                                <button type="button" class="btn btn--primary btn--sm">Marchează expediată</button>
+                            }
+                            else if (o.Status == "Shipped")
+                            {
+                                <button type="button" class="btn btn--primary btn--sm">Marchează livrată</button>
+                            }
+                            @if (o.Status == "Paid" || o.Status == "Unpaid")
+                            {
+                                <button type="button" class="btn btn--danger btn--sm">Anulează</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</section>
