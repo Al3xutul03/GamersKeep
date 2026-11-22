@@ -1827,6 +1827,24 @@ namespace Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Repository.Entity.WishlistEntry", b =>
+                {
+                    b.Property<ulong>("UserId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<ulong>("ProductId")
+                        .HasColumnType("bigint unsigned");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("UserId", "ProductId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("wishlist_entries", (string)null);
+                });
+
             modelBuilder.Entity("Repository.Entity.Address", b =>
                 {
                     b.HasOne("Repository.Entity.User", "User")
@@ -1923,6 +1941,25 @@ namespace Repository.Migrations
                         .IsRequired();
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Repository.Entity.WishlistEntry", b =>
+                {
+                    b.HasOne("Repository.Entity.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Repository.Entity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Repository.Entity.Category", b =>

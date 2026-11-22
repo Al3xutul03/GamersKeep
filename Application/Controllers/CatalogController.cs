@@ -3,10 +3,11 @@ using BusinessLogic.Models;
 using BusinessLogic.Models.Product;
 using BusinessLogic.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Application.Controllers;
 
-public class CatalogController(IProductService productService) : Controller
+public class CatalogController(IProductService productService, IWishlistService wishlistService) : Controller
 {
     private const string VariantSeparator = " – ";
 
@@ -50,6 +51,8 @@ public class CatalogController(IProductService productService) : Controller
             TotalPages = totalPages == 0 ? 1 : totalPages,
             PageSize = pageSize
         };
+
+        ViewData["WishlistIds"] = await LoadWishlistIdsAsync();
 
         return View(viewModel);
     }
@@ -100,6 +103,17 @@ public class CatalogController(IProductService productService) : Controller
             }
         }
 
+        ViewData["WishlistIds"] = await LoadWishlistIdsAsync();
+
         return View(model);
+    }
+
+    private async Task<HashSet<ulong>> LoadWishlistIdsAsync()
+    {
+        var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (!ulong.TryParse(claim, out var userId))
+            return new HashSet<ulong>();
+
+        return await wishlistService.GetProductIdsAsync(userId);
     }
 }

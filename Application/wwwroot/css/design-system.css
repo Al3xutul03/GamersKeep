@@ -1820,3 +1820,64 @@ select.field__input {
     background-size: cover;
     background-position: center;
 }
+.product-card {
+    position: relative;
+}
+
+.wish-form {
+    margin: 0;
+}
+
+.product-card > .wish-form,
+.product-card > .wish-btn {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    z-index: 2;
+}
+
+.wish-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+    transition: border-color .15s, color .15s, transform .15s;
+}
+
+    .wish-btn svg {
+        fill: none;
+    }
+
+    .wish-btn:hover {
+        border-color: var(--muted);
+        transform: scale(1.06);
+    }
+
+.wish-btn--active {
+    color: #e5527a;
+    border-color: #e5527a;
+}
+
+    .wish-btn--active svg {
+        fill: currentColor;
+    }
+
+.wish-btn--label {
+    width: auto;
+    height: 3rem;
+    padding: 0 var(--space-4);
+    font-weight: 600;
+}
+
+.pdp__wish {
+    margin-top: var(--space-3);
+}
