@@ -27,6 +27,7 @@
     var inStock = product.Stock > 0;
     var maxQty = Math.Max(1, (int)product.Stock);
     var currentLabel = Model.Variants.FirstOrDefault(v => v.IsCurrent)?.Label ?? string.Empty;
+    var wished = ViewData["WishlistIds"] as HashSet<ulong> ?? new HashSet<ulong>();
 }
 
 <a class="pdp__back" asp-controller="Catalog" asp-action="Index">&larr; Înapoi la catalog</a>
@@ -105,6 +106,10 @@
 
             <button type="submit" class="btn btn--primary btn--lg" disabled="@(!inStock)">Adaugă în coș</button>
         </form>
+
+        <div class="pdp__wish">
+            <partial name="_WishlistButton" model="new Application.Models.WishlistButtonModel(product.Id, wished.Contains(product.Id), true)" />
+        </div>
     </div>
 </div>
 

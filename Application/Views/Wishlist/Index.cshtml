@@ -1,0 +1,64 @@
+﻿@model IReadOnlyList<BusinessLogic.Models.Wishlist.WishlistItemDto>
+
+@{
+    ViewData["Title"] = "Wishlist";
+}
+
+<div class="page-head">
+    <h1 class="page-head__title">Wishlist</h1>
+    @if (Model.Count > 0)
+    {
+        <p class="page-head__sub">@Model.Count @(Model.Count == 1 ? "produs salvat" : "produse salvate")</p>
+    }
+</div>
+
+@if (Model.Count == 0)
+{
+    <div class="catalog-empty">
+        <div class="catalog-empty__icon">♡</div>
+        <h3>Wishlist-ul tău e gol</h3>
+        <p class="hero__text">Apasă pe inimioara de pe un produs ca să îl salvezi aici.</p>
+        <a asp-controller="Catalog" asp-action="Index" class="btn btn--primary">Vezi catalogul</a>
+    </div>
+}
+else
+{
+    <div class="product-grid">
+        @foreach (var item in Model)
+        {
+            <article class="product-card">
+                <partial name="_WishlistButton" model="new Application.Models.WishlistButtonModel(item.ProductId, true)" />
+                <a asp-controller="Catalog" asp-action="Details" asp-route-id="@item.ProductId" class="product-card__image-link">
+                    @if (!string.IsNullOrEmpty(item.ImageUrl))
+                    {
+                        <img src="@item.ImageUrl" alt="@item.Name" class="product-card__img" />
+                    }
+                    else
+                    {
+                        <div class="product-card__placeholder">
+                            <span>Gamer's Keep</span>
+                        </div>
+                    }
+                </a>
+                <div class="product-card__body">
+                    <h2 class="product-card__title">
+                        <a asp-controller="Catalog" asp-action="Details" asp-route-id="@item.ProductId">@item.Name</a>
+                    </h2>
+                    <p class="product-card__price">@item.Price.ToString("F2") RON</p>
+                    @if (item.Stock == 0)
+                    {
+                        <span class="badge badge--danger">Stoc epuizat</span>
+                    }
+                    <div class="product-card__actions" style="display: flex; gap: 0.5rem; margin-top: auto;">
+                        <a asp-controller="Catalog" asp-action="Details" asp-route-id="@item.ProductId" class="btn btn--ghost btn--sm">Detalii</a>
+                        <form asp-controller="Cart" asp-action="AddToCart" method="post" style="flex: 1;">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <input type="hidden" name="quantity" value="1" />
+                            <button type="submit" class="btn btn--primary btn--sm btn--block" disabled="@(item.Stock == 0)">Coș</button>
+                        </form>
+                    </div>
+                </div>
+            </article>
+        }
+    </div>
+}

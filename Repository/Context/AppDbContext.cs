@@ -21,6 +21,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public DbSet<ProductCategory> ProductCategories { get; set; } = null!;
     public DbSet<ProductImage> ProductImages { get; set; } = null!;
     public DbSet<CartEntry> CartEntries { get; set; } = null!;
+    public DbSet<WishlistEntry> WishlistEntries { get; set; } = null!;
     public DbSet<Address> Addresses { get; set; } = null!;
     public DbSet<DeliveryMethod> DeliveryMethods { get; set; } = null!;
     public DbSet<Order> Orders { get; set; } = null!;
@@ -198,6 +199,21 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             entity.Property(ce => ce.UpdatedAt)
                   .IsRequired();
             entity.Property(ce => ce.DeletedAt);
+        });
+        modelBuilder.Entity<WishlistEntry>(entity =>
+        {
+            entity.ToTable("wishlist_entries");
+            entity.HasKey(w => new { w.UserId, w.ProductId });
+            entity.Property(w => w.CreatedAt)
+                  .IsRequired();
+            entity.HasOne(w => w.User)
+                  .WithMany()
+                  .HasForeignKey(w => w.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(w => w.Product)
+                  .WithMany()
+                  .HasForeignKey(w => w.ProductId)
+                  .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Address>(entity =>
